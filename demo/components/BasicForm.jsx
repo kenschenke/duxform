@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { DuxForm } from '../../src/DuxForm';
 import { DuxInput } from '../../src/DuxInput';
 import { getFormFieldError, isFieldValidOrPristine, isFormValid } from '../../src/helpers';
-import { setFormFieldValue } from '../../src/actions';
+import { setFormFieldValue } from '../../src/actions-input';
 
 const mapBasicFormProps = state => {
     return {

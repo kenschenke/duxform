@@ -1,5 +1,5 @@
-import C from '../../src/constants';
-import { updateFormValidate } from '../../src/actions';
+import C from '../../../src/constants';
+import { updateFormValidate } from '../../../src/actions-input';
 
 describe('updateFormValidate tests', () => {
     test('form missing from state', () => {

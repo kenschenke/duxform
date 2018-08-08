@@ -1,4 +1,4 @@
-import { formData, updateFormValidate } from '../actions';
+import { formData, updateFormValidate } from '../actions-input';
 
 export const mapDuxFormProps = (state,props) => {
     return {
@@ -8,16 +8,11 @@ export const mapDuxFormProps = (state,props) => {
 
 export const mapDuxFormDispatch = dispatch => {
     return {
-        setFormStore(name, data) {
-            dispatch(
-                formData(name, data)
-            );
-        },
-
+        // This is passed to child <DuxInput> and <DuxAutoComplete> elements in the formValidate property.  They call
+        // it when their validity changes.  The updateFormValidate action is dispatched, updating the validity of
+        // the entire form.
         formValidate(name, onValidate) {
-            dispatch(
-                updateFormValidate(name, onValidate)
-            );
+            dispatch(updateFormValidate(name, onValidate));
         }
     };
 };

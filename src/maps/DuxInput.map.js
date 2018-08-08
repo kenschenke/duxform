@@ -1,4 +1,4 @@
-import { fieldData, formData } from '../actions';
+import { fieldData, formData } from '../actions-input';
 import { findFormField, formatValue, getFormFieldData, getFormFieldValue,
     getInitData, normalize, parseValue } from '../helpers';
 

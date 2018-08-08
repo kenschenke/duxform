@@ -18,7 +18,6 @@ class DuxFormUi extends React.Component {
             }
         }
         // But not these
-        delete this.childProps.setFormStore;
         delete this.childProps.onSubmit;
         delete this.childProps.onValidate;
         delete this.childProps.initialFocus;
@@ -100,7 +99,6 @@ class DuxFormUi extends React.Component {
 
 DuxFormUi.propTypes = {
     name: PropTypes.string.isRequired,
-    setFormStore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
     onValidate: PropTypes.func,
     initialFocus: PropTypes.string

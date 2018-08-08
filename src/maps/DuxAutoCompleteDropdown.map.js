@@ -1,27 +1,12 @@
-import { autocompleteAddSelectedItem } from '../actions';
+import { autocompleteAddSelectedItem } from '../actions-autocomplete';
+import { getFormFieldData } from '../helpers';
 
 export const mapDuxAutoCompleteDropdownProps = (state, props) => {
     return {
-        items: (state.forms.hasOwnProperty(props.formName) &&
-            state.forms[props.formName].hasOwnProperty('fields') &&
-            state.forms[props.formName].fields.hasOwnProperty(props.name) &&
-            state.forms[props.formName].fields[props.name].hasOwnProperty('items')) ?
-            state.forms[props.formName].fields[props.name].items : [],
-        left: (state.forms.hasOwnProperty(props.formName) &&
-            state.forms[props.formName].hasOwnProperty('fields') &&
-            state.forms[props.formName].fields.hasOwnProperty(props.name) &&
-            state.forms[props.formName].fields[props.name].hasOwnProperty('left')) ?
-            state.forms[props.formName].fields[props.name].left : 0,
-        width: (state.forms.hasOwnProperty(props.formName) &&
-            state.forms[props.formName].hasOwnProperty('fields') &&
-            state.forms[props.formName].fields.hasOwnProperty(props.name) &&
-            state.forms[props.formName].fields[props.name].hasOwnProperty('width')) ?
-            state.forms[props.formName].fields[props.name].width : 0,
-        highlightedValue: (state.forms.hasOwnProperty(props.formName) &&
-            state.forms[props.formName].hasOwnProperty('fields') &&
-            state.forms[props.formName].fields.hasOwnProperty(props.name) &&
-            state.forms[props.formName].fields[props.name].hasOwnProperty('highlightedValue')) ?
-            state.forms[props.formName].fields[props.name].highlightedValue : -1
+        items: getFormFieldData(state, props.formName, props.name, 'items', []),
+        left: getFormFieldData(state, props.formName, props.name, 'left', 0),
+        width: getFormFieldData(state, props.formName, props.name, 'width', 0),
+        highlightedValue: getFormFieldData(state, props.formName, props.name, 'highlightedValue', -1)
     };
 };
 

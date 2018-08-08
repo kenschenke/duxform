@@ -1,5 +1,5 @@
-import C from '../../src/constants';
-import { setFormFieldValue } from '../../src/actions';
+import C from '../../../src/constants';
+import { setFormFieldValue } from '../../../src/actions-input';
 
 describe('setFormFieldValue tests', () => {
     test('valid', () => {

@@ -1,87 +1,30 @@
-import C from './constants';
+import C from 'constants';
 import { getElementPosition, getFormFieldData } from './helpers';
+import { fieldData } from './actions-input';
 
-export const formData = (name, data) =>
-    ({
-        type: C.DUXFORM_SET_FORM_DATA,
-        name: name,
-        data: data,
-    });
-
-export const fieldData = (formName, name, data) =>
-    ({
-        type: C.DUXFORM_SET_FIELD_DATA,
-        form: formName,
-        field: name,
-        payload: data
-    });
-
-export const setFormFieldValue = (formName, name, value, valid = true) => dispatch => {
-    let payload = {
-        value: value,
-        valid: valid,
-        pristine: false
-    };
-    if (valid) {
-        payload.error = '';
-    }
-    dispatch({
-        type: C.DUXFORM_SET_FIELD_DATA,
-        form: formName,
-        field: name,
-        payload: payload
-    });
-    dispatch(formData(formName, {pristine: false}));
-
-    dispatch(updateFormValidate(formName));
-};
-
-export const updateFormValidate = (formName, onValidate) => (dispatch, getState) => {
-    const state = getState();
-
-    if (!state.forms.hasOwnProperty(formName) || !state.forms[formName].hasOwnProperty('fields')) {
-        return;
-    }
-
-    let allFieldsValid = true;
-    let values = {};
-    for (let field in state.forms[formName].fields) {
-        if (state.forms[formName].fields.hasOwnProperty(field)) {
-            values[field] = state.forms[formName].fields[field].value;
-            if (!state.forms[formName].fields[field].valid) {
-                allFieldsValid = false;
-            }
-        }
-    }
-
-    let error = '';
-    if (onValidate !== undefined && allFieldsValid) {
-        const ret = onValidate(values);
-        if (ret !== undefined) {
-            error = ret;
-            allFieldsValid = false;
-        }
-    }
-
-    dispatch(
-        formData(formName, {valid: allFieldsValid, error: error})
-    );
-};
-
+/**
+ * Add a new item (not in the list of available items) to the selection.
+ *
+ * @param formName
+ * @param name
+ * @param value
+ * @returns {Function}
+ */
 export const autocompleteAddNewItem = (formName, name, value) => (dispatch, getState) => {
     const state = getState();
     const selectedItems = getFormFieldData(state, formName, name, 'selectedItems', []);
     const valueU = value.toUpperCase();
 
-    const matches = selectedItems.filter(item => {
-        return valueU === item.labelU;
-    });
+    // Check the currently selected items to see if this new item is already in there.
+    const matches = selectedItems.filter(item => valueU === item.labelU);
 
     if (!matches.length) {
+        // It wasn't, so add it.
         dispatch(fieldData(formName, name, {
             selectedItems: [...selectedItems, {
                 value: value,
-                label: value
+                label: value,
+                labelU: valueU
             }],
             inputValue: '',
             valid: true
@@ -89,18 +32,30 @@ export const autocompleteAddNewItem = (formName, name, value) => (dispatch, getS
     }
 };
 
+/**
+ * Adds the item selected by the user to the list of selected items.  The item is selected by the user by
+ * hitting Enter or Tab while the item is highlighted or by clicking on the item in the dropdown list.
+ *
+ * @param formName
+ * @param name
+ * @param allowMulti
+ * @param value
+ * @returns {Function}
+ */
 export const autocompleteAddSelectedItem = (formName, name, allowMulti, value) => (dispatch, getState) => {
     const state = getState();
     const selectedItems = getFormFieldData(state, formName, name, 'selectedItems', []);
     const item = autocompleteGetSelectedItem(state, formName, name, value);
     if (item) {
         if (allowMulti) {
+            // Multi selections are allowed so add the item to the list of currently selected items.
             dispatch(fieldData(formName, name, {
                 selectedItems: [...selectedItems, item],
                 inputValue: '',
                 valid: true
             }));
         } else {
+            // Single selection only.  Set the selected item.
             dispatch(fieldData(formName, name, {
                 value: value,
                 inputValue: item.label,
@@ -110,6 +65,14 @@ export const autocompleteAddSelectedItem = (formName, name, allowMulti, value) =
     }
 };
 
+/**
+ * The down arrow is pressed by the user.  It locates the currently highlighted item in the dropdown list and
+ * sets the next item to be the highlighted item.
+ *
+ * @param formName
+ * @param name
+ * @returns {Function}
+ */
 export const autocompleteDownArrowPressed = (formName, name) => (dispatch, getState) => {
     const state = getState();
     const highlighted = getFormFieldData(state, formName, name, 'highlightedValue', '');
@@ -127,12 +90,20 @@ export const autocompleteDownArrowPressed = (formName, name) => (dispatch, getSt
     autocompleteEnsureItemIsVisible(formName, name, newHighlighted);
 };
 
+/**
+ * Stores the list of dropdown items in the state.  If there is a currently highlighted item,
+ * and that item is in the list of dropdown items, make sure that item is highlighted.  Otherwise,
+ * highlight the first item in the list.
+ *
+ * @param formName
+ * @param name
+ * @param matches
+ * @returns {Function}
+ */
 export const autocompleteDropdownMatches = (formName, name, matches) => (dispatch, getState) => {
     const state = getState();
     let highlightedValue = getFormFieldData(state, formName, name, 'highlightedValue', '');
-    const highlightedItems = matches.filter(item => {
-        return highlightedValue === item.value;
-    });
+    const highlightedItems = matches.filter(item => highlightedValue === item.value);
     if (!highlightedItems.length) {
         highlightedValue = matches.length ? matches[0].value : '';
     }
@@ -142,10 +113,17 @@ export const autocompleteDropdownMatches = (formName, name, matches) => (dispatc
     }));
 };
 
+/**
+ * Ensure the highlighted item is visible in the dropdown list by scrolling the list if necessary.
+ *
+ * @param formName
+ * @param name
+ * @param value
+ */
 const autocompleteEnsureItemIsVisible = (formName, name, value) => {
-    // if (formName === C.DFIAUTOCOMPLETE_UNITTEST_FORM && name === C.DFIAUTOCOMPLETE_UNITTEST_FIELD) {
-    //     return;
-    // }
+    if (formName === C.DUXAUTOCOMPLETE_UNITTEST_FORM && name === C.DUXAUTOCOMPLETE_UNITTEST_FIELD) {
+        return;
+    }
 
     const div = document.getElementById(`duxac-${formName}-${name}`);
     const item = document.getElementById(`duxacitem-${formName}-${name}-${value}`);
@@ -167,22 +145,45 @@ const autocompleteEnsureItemIsVisible = (formName, name, value) => {
     }
 };
 
+/**
+ * Helper function that returns the item currently highlighted.
+ *
+ * @param state
+ * @param formName
+ * @param name
+ * @param value
+ * @returns {undefined}
+ */
 const autocompleteGetSelectedItem = (state, formName, name, value) => {
     const items = getFormFieldData(state, formName, name, 'items', []);
     const matches = items.filter(item => item.value === value);
     return matches.length === 1 ? matches[0] : undefined;
 };
 
+/**
+ * Remove the item from the list of selected items.
+ *
+ * @param formName
+ * @param name
+ * @param value
+ * @returns {Function}
+ */
 export const autocompleteRemoveSelectedItem = (formName, name, value) => (dispatch, getState) => {
     const state = getState();
     const selectedItems = getFormFieldData(state, formName, name, 'selectedItems', []);
     dispatch(fieldData(formName, name, {
-        selectedItems: selectedItems.filter(item => {
-            return item.value !== value
-        })
+        selectedItems: selectedItems.filter(item => item.value !== value)
     }));
 };
 
+/**
+ * The up arrow is pressed by the user.  It locates the currently highlighted item in the dropdown list and
+ * sets the previous item to be the highlighted item.
+ *
+ * @param formName
+ * @param name
+ * @returns {Function}
+ */
 export const autocompleteUpArrowPressed = (formName, name) => (dispatch, getState) => {
     const state = getState();
     const highlighted = getFormFieldData(state, formName, name, 'highlightedValue', '');

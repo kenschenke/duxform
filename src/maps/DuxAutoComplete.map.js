@@ -1,7 +1,7 @@
 import { fieldData, autocompleteAddNewItem, autocompleteDropdownMatches,
     autocompleteUpArrowPressed, autocompleteDownArrowPressed, autocompleteAddSelectedItem,
-    autocompleteRemoveSelectedItem } from '../actions';
-import { findFormField, getFormFieldData, isAutoCompleteValueHighlighted } from "../helpers";
+    autocompleteRemoveSelectedItem } from '../actions-autocomplete';
+import { getFormFieldData, isAutoCompleteValueHighlighted } from '../helpers';
 
 export const mapDuxAutoCompleteProps = (state, props) => {
     return {
