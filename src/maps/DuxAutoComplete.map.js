@@ -1,4 +1,5 @@
-import { fieldData, autocompleteAddNewItem, autocompleteDropdownMatches,
+import { fieldData } from '../actions-input';
+import { autocompleteAddNewItem, autocompleteDropdownMatches,
     autocompleteUpArrowPressed, autocompleteDownArrowPressed, autocompleteAddSelectedItem,
     autocompleteRemoveSelectedItem } from '../actions-autocomplete';
 import { getFormFieldData, isAutoCompleteValueHighlighted } from '../helpers';

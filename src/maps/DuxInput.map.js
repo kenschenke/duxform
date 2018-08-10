@@ -74,7 +74,7 @@ export const mapDuxInputDispatch = dispatch => {
                     error = 'Invalid date';
                     valid = false;
                 } else if (props.onValidate) {
-                    const errorMsg = props.onValidate(event.target.value, props.formName, props.name);
+                    const errorMsg = props.onValidate(event.target.value, props.name, props.formName);
                     if (errorMsg !== undefined) {
                         error = errorMsg;
                         valid = false;
@@ -108,7 +108,7 @@ export const mapDuxInputDispatch = dispatch => {
 
                 if (props.onEnterPressed) {
                     const value = parseValue(event.target.value, props);
-                    props.onEnterPressed(props.formName, props.name, value);
+                    props.onEnterPressed(value, props.name, props.formName);
                 }
 
                 if (props.nextField) {

@@ -3,7 +3,7 @@
  *
  * @param formName
  * @param name
- * @returns {*}
+ * @returns field object or undefined if not found.
  */
 export const findFormField = (formName, name) => {
     let f, i;
@@ -125,6 +125,35 @@ export const getElementPosition = elem => {
 };
 
 /**
+ * Returns the requested property from the form state.  This function is safe to call during initialization.
+ *
+ * @param state
+ * @param formName
+ * @param propName
+ * @param defaultValue
+ * @returns {*}
+ */
+export const getFormData = (state, formName, propName, defaultValue) => {
+    if (!state.forms.hasOwnProperty(formName) ||
+        !state.forms[formName].hasOwnProperty(propName)) {
+        return defaultValue;
+    }
+
+    return state.forms[formName][propName];
+};
+
+/**
+ * Returns the error message of the form.
+ *
+ * @param state
+ * @param formName
+ * @returns {*}
+ */
+export const getFormError = (state, formName) => {
+    return getFormData(state, formName, 'error', '');
+};
+
+/**
  * Returns the error message of the field.
  *
  * @param state
@@ -201,7 +230,7 @@ export const getInitData = props => {
     let error = '';
     let valid = true;
     if (props.onValidate) {
-        const errorMsg = props.onValidate(defaultValue, props.formName, props.name);
+        const errorMsg = props.onValidate(defaultValue, props.name, props.formName);
         if (errorMsg !== undefined) {
             error = errorMsg;
             valid = false;
@@ -270,12 +299,21 @@ export const isFieldValidOrPristine = (state, formName, name) => {
  * @returns {*}
  */
 export const isFormValid = (state, formName) => {
-    if (state.forms.hasOwnProperty(formName) &&
-        state.forms[formName].hasOwnProperty('valid')) {
-        return state.forms[formName].valid;
-    }
+    return getFormData(state, formName, 'valid', false);
+};
 
-    return false;
+/**
+ * Returns whether or not the form is valid or pristine.
+ *
+ * @param state
+ * @param formName
+ * @returns {*}
+ */
+export const isFormValidOrPristine = (state, formName) => {
+    const valid = getFormData(state, formName, 'valid', false);
+    const pristine = getFormData(state, formName, 'pristine', false);
+
+    return valid || pristine;
 };
 
 /**

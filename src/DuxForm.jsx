@@ -67,13 +67,13 @@ class DuxFormUi extends React.Component {
             if (child.hasOwnProperty('type') && child.type.hasOwnProperty('WrappedComponent') && (child.type.WrappedComponent === DuxInputUi || child.type.WrappedComponent === DuxAutoCompleteUi)) {
                 return React.cloneElement(child, {
                     formName: this.props.name,
-                    formValidate: this.props.formValidate
+                    formValidate: name => this.props.formValidate(name,this.props.onValidate)
                 });
             } else if (child.hasOwnProperty('props') && typeof child.props.children === 'object') {
                 if (child.hasOwnProperty('type') && typeof child.type === 'function' && (child.type.WrappedComponent.name === 'DuxInputUi' || child.type.WrappedComponent.name === 'DuxAutoCompleteUi')) {
                     return React.cloneElement(child, {
                         formName: this.props.name,
-                        formValidate: this.props.formValidate,
+                        formValidate: name => this.props.formValidate(name,this.props.onValidate),
                         children: this.renderChildren(child.props.children)
                     });
                 } else {

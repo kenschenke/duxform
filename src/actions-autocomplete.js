@@ -201,3 +201,53 @@ export const autocompleteUpArrowPressed = (formName, name) => (dispatch, getStat
     autocompleteEnsureItemIsVisible(formName, name, newHighlighted);
 };
 
+/**
+ * Returns the array of selected items in an auto-complete field.
+ *
+ * @param state
+ * @param formName
+ * @param name
+ * @returns {*}
+ */
+export const getAutoCompleteMultiSelectValues = (state, formName, name) => {
+    return getFormFieldData(state, formName, name, 'selectedItems', []);
+};
+
+/**
+ * Sets the selected value in a single-selection auto-complete field.
+ *
+ * @param formName
+ * @param name
+ * @param value
+ * @param valid
+ * @returns {Function}
+ */
+export const setAutoCompleteSingleSelectValue = (formName, name, value, valid = true) => dispatch => {
+    dispatch(fieldData(formName, name, {
+        value: value,
+        inputValue: value,
+        valid: valid,
+        pristine: false,
+        error: ''
+    }));
+};
+
+/**
+ * Sets the selected values in a multi-select auto-complete field.
+ *
+ * @param formName
+ * @param name
+ * @param values
+ * @param valid
+ * @returns {Function}
+ */
+export const setAutoCompleteMultiSelectValues = (formName, name, values, valid = true) => dispatch => {
+    dispatch(fieldData(formName, name, {
+        valid: valid,
+        selectedItems: values,
+        inputValue: '',
+        pristine: false,
+        error: ''
+    }));
+};
+

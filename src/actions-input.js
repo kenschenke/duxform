@@ -87,7 +87,7 @@ export const updateFormValidate = (formName, onValidate) => (dispatch, getState)
 
     let error = '';
     if (onValidate !== undefined && allFieldsValid) {
-        const ret = onValidate(values);
+        const ret = onValidate(values, formName);
         if (ret !== undefined) {
             error = ret;
             allFieldsValid = false;
