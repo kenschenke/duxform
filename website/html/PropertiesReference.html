@@ -1,0 +1,176 @@
+<h3>Properties Reference</h3>
+
+<h4>DuxForm</h4>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Property</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>(required)</td>
+        <td>Name of form</td>
+    </tr>
+    <tr>
+        <td>onSubmit</td>
+        <td>(none)</td>
+        <td>Called when the form is submitted.  See <strong>Getting Started</strong> for an example.</td>
+    </tr>
+    <tr>
+        <td>onValidate</td>
+        <td>(none)</td>
+        <td>Called to validate the form.  See <strong>Validation</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>initialFocus</td>
+        <td>(none)</td>
+        <td>The name of a form field to receive initial focus when the form initializes.</td>
+    </tr>
+    </tbody>
+</table>
+
+<h4>DuxInput</h4>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Property</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>(required)</td>
+        <td>Name of form field</td>
+    </tr>
+    <tr>
+        <td>nextField</td>
+        <td>(none)</td>
+        <td>The name of the form field to receive focus when the user pressed Enter</td>
+    </tr>
+    <tr>
+        <td>onValidate</td>
+        <td>(none)</td>
+        <td>Called to validate the value.  See <strong>Validation</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>onEnterPressed</td>
+        <td>(none)</td>
+        <td>
+            Called when the user presses Enter.  The function is passed the current value, the field name, and
+            the form name.
+        </td>
+    </tr>
+    <tr>
+        <td>format</td>
+        <td>(none)</td>
+        <td>Called to format the value.  See <strong>Formatting</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>parse</td>
+        <td>(none)</td>
+        <td>Called to parse the value.  See <strong>Formatting</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>normalize</td>
+        <td>(none)</td>
+        <td>Called to normalize the value.  See <strong>Formatting</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>dataType</td>
+        <td>str</td>
+        <td>The data type of the field.  See <strong>Data Types</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>precision</td>
+        <td>0</td>
+        <td>The precision of the number field.  See <strong>Data Types</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>showCommas</td>
+        <td>false</td>
+        <td>Whether to use commas as a thousands separator.  See <strong>Data Types</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>showDollar</td>
+        <td>false</td>
+        <td>Whether to show a dollar sign in the field.  See <strong>Data Types</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>round</td>
+        <td>true</td>
+        <td>Whether to the value based on the precision.  See <strong>Data Types</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>forceUpper</td>
+        <td>false</td>
+        <td>Whether to force letters to upper case.  See <strong>Data Types</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>trim</td>
+        <td>true</td>
+        <td>Whether to remove leading and trailing whitespace when the field loses focus.</td>
+    </tr>
+    <tr>
+        <td>onFocus</td>
+        <td>(none)</td>
+        <td>Called when the field gains focus.  The function is passed the field name.</td>
+    </tr>
+    <tr>
+        <td>onBlur</td>
+        <td>(none)</td>
+        <td>Called when the field loses focus.  The function is passed the field name.</td>
+    </tr>
+    </tbody>
+</table>
+
+<h4>DuxAutoComplete</h4>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Property</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>(required)</td>
+        <td>Name of form field</td>
+    </tr>
+    <tr>
+        <td>items</td>
+        <td>(required)</td>
+        <td>The items the user can select from.  See <strong>AutoComplete Fields</strong> for more information.</td>
+    </tr>
+    <tr>
+        <td>allowMulti</td>
+        <td>false</td>
+        <td>True of the user is allowed to select multiple items in the list</td>
+    </tr>
+    <tr>
+        <td>multiSeparators</td>
+        <td>[',', ';']</td>
+        <td>Array of characters that users type to begin a new item in a multi-select list</td>
+    </tr>
+    <tr>
+        <td>allowNewItems</td>
+        <td>false</td>
+        <td>True if the user is allowed to add items not in the supplied list of items</td>
+    </tr>
+    <tr>
+        <td>validateItem</td>
+        <td>(none)</td>
+        <td>Callback function to validate items before adding to a multi-select list</td>
+    </tr>
+    </tbody>
+</table>

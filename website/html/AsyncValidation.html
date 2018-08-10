@@ -1,0 +1,8 @@
+<h3>Asynchronous Validation</h3>
+
+<p>
+    Because field validation functions must be very quick and low-resource, server-based Asynchronous validation
+    cannot be done inside these callbacks.  It can be implemented using a simple workaround.  The application
+    connects to the field's <code>onBlur</code> handler and keeps track when the validation is started.  This
+    technique is demonstrated below.
+</p>

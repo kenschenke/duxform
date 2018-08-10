@@ -1,0 +1,193 @@
+<h3>Helpers</h3>
+
+<p>
+    DuxForm comes with several helper functions and actions to interact with the forms, fields, and Redux store.
+</p>
+
+<h4>findFormField</h4>
+
+<p>
+    This convenience function locates the HTMLElement object for a given field.  <strong>undefined</strong> is
+    returned if the field could not be found.
+</p>
+
+<pre>
+    import {findFormField} from 'duxform';
+
+    findFormField(formName, fieldName);
+</pre>
+
+<h4>getAutoCompleteMultiSelectValues</h4>
+
+<p>
+    This returns the array of selected items in an auto-complete field.  The current application state is passed
+    as the first parameter.
+</p>
+
+<pre>
+    import {getAutoCompleteMultiSelectValues} from 'duxform';
+
+    getAutoCompleteMultiSelectValues(state, formName, fieldName);
+</pre>
+
+<h4>getFormData</h4>
+
+<p>
+    This returns a property from the form Redux store.  Use it to to retrieve properties other than valid
+    or error.  getFormError, isFormValid, and isFormValidOrPristine are actually just convenience
+    functions that call this function.  This function is safe to call at any time during application initialization,
+    even before the form has initialized.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {getFormData} from 'duxform';
+
+    getFormData(state, formName, propName, defaultValue);
+</pre>
+
+<h4>getFormError</h4>
+
+<p>
+    This returns the error message for the form.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {getFormError} from 'duxform';
+
+    getFormError(state, formName);
+</pre>
+
+<h4>getFormFieldData</h4>
+
+<p>
+    This returns a property from the field Redux store.  Use it to to retrieve properties other than valid
+    or error.  getFormFieldError, isFieldValid, and isFieldValidOrPristine are actually just convenience
+    functions that call this function.  This function is safe to call at any time during application initialization,
+    even before the form has initialized.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {getFormFieldData} from 'duxform';
+
+    getFormFieldData(state, formName, fieldName, propName, defaultValue);
+</pre>
+
+<h4>getFormFieldError</h4>
+
+<p>
+    This returns the error message for a given field.  An empty string is returned if the form or field have not
+    yet been initialized or not been validated yet.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {getFormFieldError} from 'duxform';
+
+    getFormFieldError(state, formName, fieldName);
+</pre>
+
+<h4>getFormFieldValue</h4>
+
+<p>
+    This returns the value for a given field.  The default value is returned if the form or field have not
+    yet been initialized.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {getFormFieldValue} from 'duxform';
+
+    getFormFieldValue(state, formName, fieldName, defaultValue);
+</pre>
+
+<h4>isFieldValid</h4>
+
+<p>
+    This returns a boolean value to indicate if a field is valid.  False is returned if the field is not yet
+    initialized.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {isFieldValid} from 'duxform';
+
+    isFieldValid(state, formName, fieldName);
+</pre>
+
+<h4>isFieldValidOrPristine</h4>
+
+<p>
+    This returns a boolean value to indicate if a field is valid or pristine.  False is returned if the field is not yet
+    initialized.  The current application state is passed as the first parameter.  This function is helpful if you want
+    to show an invalid indicator but not until the user has changed the field.  It's rather alarming to a user if a
+    blank, pristine form shows red errors on all fields.
+</p>
+
+<pre>
+    import {isFieldValidOrPristine} from 'duxform';
+
+    isFieldValidOrPristine(state, formName, fieldName);
+</pre>
+
+<h4>isFormValid</h4>
+
+<p>
+    This returns a boolean value to indicate if a form is valid.  False is returned if the form is not yet
+    initialized.  The current application state is passed as the first parameter.
+</p>
+
+<pre>
+    import {isFormValid} from 'duxform';
+
+    isFormValid(state, formName);
+</pre>
+
+<h4>isFormValidOrPristine</h4>
+
+<p>
+    This returns a boolean value to indicate if a form is valid or pristine.  False is returned if the form is not yet
+    initialized.  The current application state is passed as the first parameter.  This function is helpful if you want
+    to show an invalid indicator but not until the user has changed the field.  It's rather alarming to a user if a
+    blank, pristine form shows red errors on all fields.
+</p>
+
+<pre>
+    import {isFormValidOrPristine} from 'duxform';
+
+    isFormValidOrPristine(state, formName);
+</pre>
+
+<h4>setAutoCompleteSingleSelectValue</h4>
+
+<p>
+    This action sets the selected value in a single-selection auto-complete field.
+</p>
+
+<pre>
+    import {setAutoCompleteSingleSelectValue} from 'duxform';
+
+    setAutoCompleteSingleSelectValue(formName, fieldName, value, valid = true);
+</pre>
+
+<h4>setAutoCompleteMultiSelectValues</h4>
+
+<p>
+    This action sets the selected items in a multi-selection auto-complete field.
+</p>
+
+<pre>
+    import {setAutoCompleteMultiSelectValues} from 'duxform';
+
+    setAutoCompleteMultiSelectValues(formName, name, values, valid = true);
+</pre>
+
+<h4>setFormFieldValue</h4>
+
+<p>
+    This action sets the value of a field.  Do not use this action for auto-complete fields.  Use
+    <code>setAutoCompleteSingleSelectValue</code> or <code>setAutoCompleteMultiSelectValues</code> instead.
+</p>
+
+<pre>
+    import {setFormFieldValid} from 'duxform';
+
+    dispatch(setFormFieldValue(formName, fieldName, value, valid = true));
+</pre>
+

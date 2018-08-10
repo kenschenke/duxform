@@ -1,0 +1,33 @@
+<h3>Formatting, Parsing, and Normalization</h3>
+
+<p>
+    The <code>&lt;DuxInput&gt;</code> component supports custom formatting, parsing, and normalization callbacks.
+    A formatting callback is called upon to display a value in a format the user can easily read.  A parsing callback
+    is called upon to read a string input by the user and convert it into a value saved in the Redux store.  A
+    normalization callback is called upon to normalize the value input by the user into a the value saved in the
+    Redux store.
+</p>
+
+<h4>Formatting</h4>
+
+<p>
+    A formatting callback is called when the input field blurs.  It formats the value from the Redux store to be
+    displayed in the field input.  The function is passed the value and field name and returns the formatted value.
+</p>
+
+<h4>Parsing</h4>
+
+<p>
+    The parsing callback is called whenever the value changes, even as the user types.  It parses the value from the
+    input field into the value you want saved in the Redux store.  The function is passed the value and the field
+    name and returns the parsed value.
+</p>
+
+<h4>Normalization</h4>
+
+<p>
+    The normalization callback is called when the input field blurs.  This is useful when you want to alter the value
+    the user enters before it gets stored in the Redux store.  For example, you could convert the string to all lowercase
+    or remove special or undesired characters.  The function is passed the value and field name and it returns the
+    normalized value.
+</p>

@@ -1,0 +1,62 @@
+<h3>Input Types</h3>
+
+<p>
+    <code>&lt;DuxInput&gt;</code> supports a few <code>&lt;input&gt;</code> type attributes natively.  Other types
+    such as <code>password</code> and <code>number</code> work as well but do not include any built-in support.  Five
+    basic input types are supported - text, checkbox, radio, select and textarea.  The last two are special cases.  The
+    text type, like the <code>&lt;input&gt;</code> tag, is the default.  Nothing special is done when the type is text.
+</p>
+
+<h4>Checkbox</h4>
+
+<p>
+    Checkboxes store their value in the Redux store as a JavaScript boolean value.  Like the React <code>&lt;input&gt;</code>
+    tag, use the <code>defaultChecked</code> property to specify a default value for the checkbox.  The default is false
+    (unchecked).
+</p>
+
+<h4>Radio Buttons</h4>
+
+<p>
+    A group of radio buttons with the same <code>name</code> property will share a single value in the Redux store.  The
+    value in the store reflects the currently selected button in the group.  Use the <code>defaultChecked</code> property
+    to specify a radio button to be selected by default.  Following is an example.
+</p>
+
+<pre>
+    &lt;DuxForm&gt;
+        &lt;DuxInput name="choice" value="first" type="radio" defaultChecked={true}/&gt;
+        &lt;DuxInput name="choice" value="second" type="radio"/&gt;
+        &lt;DuxInput name="choide" value="third" type="radio"/&gt;
+    &lt;/DuxForm&gt;
+</pre>
+
+<p>
+    In this example, the Redux store will have just one field named <code>choice</code> which will contain a value of
+    <code>first</code>, <code>second</code>, or <code>third</code> based on the user selection.
+</p>
+
+<h4>Select Tags</h4>
+
+<p>
+    Setting <code>type="select"</code> will render a <code>&lt;select&gt;</code> tag in the document.  Use the
+    <code>defaultValue</code> property to specify the option selected by default.  The value in the Redux store for the
+    field will be the value of the currently selected option.  Following is an example.
+</p>
+
+<pre>
+    &lt;DuxInput name="color" defaultValue="blue" type="select"&gt;
+        &lt;option value="red"&gt;Red&lt;/option&gt;
+        &lt;option value="green"&gt;Green&lt;/option&gt;
+        &lt;option value="blue"&gt;Blue&lt;/option&gt;
+        &lt;option value="yellow"&gt;Yellow&lt;/option&gt;
+    &lt;/DuxInput&gt;
+</pre>
+
+<h4>TextArea</h4>
+
+<p>
+    Setting <code>type="textarea"</code> will render a <code>&lt;textarea&gt;</code> tag in the document.  Use the
+    <code>defaultValue</code> property to specify the default value in the field.  This is different from the React
+    <code>&lt;textarea&gt;</code> tag in that, the default value is a child of the tag.
+</p>

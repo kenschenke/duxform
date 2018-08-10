@@ -1,0 +1,40 @@
+<h3>Validation</h3>
+
+<p>
+    You can supply your own custom validation functions at the field level and the form level.  Validation functions
+    are called whenever a field changes value, even as the user is typing.  For this reason, they should execute quickly
+    without accessing server resources.  See the topic on <strong>Asynchronous Validation</strong> for techniques you
+    can use to validate against server resources or validation that might not be immediate or resource friendly.
+</p>
+
+<p>
+    Validation callbacks are specified with the <code>onValidate</code> property to the <code>&lt;DuxForm&gt;</code> and
+    <code>&lt;DuxInput&gt;</code> components.  If the field or form is not valid, and error message string is returned.
+    If valid, <code>undefined</code> is returned.
+</p>
+
+<h4>Field Validation</h4>
+
+<pre>
+    const validateAge = (value, fieldName, formName) => {
+        if (value &lt; 0 || value &gt; 120) {
+            return "Age out of range";
+        }
+    };
+
+    &lt;DuxInput onValidate={validateAge}/&gt;
+</pre>
+
+<h4>Form Validation</h4>
+
+<pre>
+    const validateForm = (values, formName) => {
+        if (values.country === "USA" && values.phone.length !== 10) {
+            return "Phone numbers in the United States must be 10 digits long";
+        }
+    };
+
+    &lt;DuxForm onValidate={validateForm}&gt;
+        ...
+    &lt;/DuxForm&gt;
+</pre>

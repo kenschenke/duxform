@@ -1,0 +1,101 @@
+<h3>AutoComplete Fields</h3>
+
+<p>
+    The <code>&lt;DuxAutoComplete&gt;</code> component implements drop-down auto-complete fields.  They can use
+    single or multi-selection.  They can restrict the user to values in a list or allow new values to be added.  The
+    following are properties of the AutoComplete component.
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>name</td>
+            <td>(required)</td>
+            <td>The name of the form field</td>
+        </tr>
+        <tr>
+            <td>items</td>
+            <td>(required)</td>
+            <td>Array of items (see Items, below)</td>
+        </tr>
+        <tr>
+            <td>allowMulti</td>
+            <td>false</td>
+            <td>True of the user is allowed to select multiple items in the list</td>
+        </tr>
+        <tr>
+            <td>multiSeparators</td>
+            <td>[',', ';']</td>
+            <td>Array of characters that users type to begin a new item in a multi-select list</td>
+        </tr>
+        <tr>
+            <td>allowNewItems</td>
+            <td>false</td>
+            <td>True if the user is allowed to add items not in the supplied list of items</td>
+        </tr>
+        <tr>
+            <td>validateItem</td>
+            <td>(none)</td>
+            <td>Callback function to validate items before adding to a multi-select list</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Items Array</h4>
+
+<p>
+    The <code>items</code> property specifies an array of items the user can choose from as they type.  Each item in
+    the array is an object with the following required properties.
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>label</td>
+            <td>The label shown in the list.  As the user types, the drop-down list shows items that partially match this label</td>
+        </tr>
+        <tr>
+            <td>value</td>
+            <td>The value of the item.  It can be same as the label, but must be specified.  This value must be unique.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Redux Store</h4>
+
+<p>
+    The <code>&lt;DuxAutoComplete&gt;</code> component stores data in the Redux store very similar to the
+    <code>&lt;DuxInput&gt;</code> component.  The major difference is with multi-select fields.  Instead of a
+    <code>value</code> property, an array of selected items is stored in the <code>selectedItems</code> property.
+</p>
+
+<h4>Validating Multi-Select Items</h4>
+
+<p>
+    If a callback is specified in the <code>validateItem</code> property, it is called when a user attempts to add a
+    new item to the multi-select list.  It is passed the value in question, the field name, and the form name.  It
+    returns an error string if the value is invalid or <code>undefined</code> if valid.
+</p>
+
+<h4>Helper Functions</h4>
+
+<p>
+    A few helper functions specific to auto-complete fields are provided.  There are
+    <code>getAutoCompleteMultiSelectValues</code>, <code>setAutoCompleteSingleSelectValue</code>, and
+    <code>setAutoCompleteMultiSelectValues</code>.  See the <strong>Helpers</strong> topic for more information.
+</p>
+
+<h4>Examples</h4>
