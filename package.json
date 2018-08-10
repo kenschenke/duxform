@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "demo": "./node_modules/.bin/webpack-dev-server --env=demo",
     "test": "jest",
     "testbed": "./node_modules/.bin/webpack-dev-server --env=testbed",
     "website": "./node_modules/.bin/webpack-dev-server --env=website"
