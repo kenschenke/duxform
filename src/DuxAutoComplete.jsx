@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mapDuxAutoCompleteProps, mapDuxAutoCompleteDispatch } from './maps/DuxAutoComplete.map';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import { DuxAutoCompleteDropdown } from './DuxAutoCompleteDropdown';
 import {findFormField} from "./helpers";
 
@@ -113,7 +111,7 @@ export class DuxAutoCompleteUi extends React.Component {
 
         const itemDivs = this.props.selectedItems.map(item => {
             return (
-                <div key={item.value} className="duxformac-selected-item">{item.label} <FontAwesomeIcon icon={faTimes} className="duxformac-remove-icon" size="1x" onClick={() => this.props.removeSelectedItem(this.props.name, this.props.formName, item.value)}/></div>
+                <div key={item.value} className="duxformac-selected-item">{item.label} <span className="duxformac-remove-icon" onClick={() => this.props.removeSelectedItem(this.props.name, this.props.formName, item.value)}>X</span></div>
             );
         });
 
