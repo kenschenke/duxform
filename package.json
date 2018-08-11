@@ -1,8 +1,22 @@
 {
   "name": "duxform",
   "version": "0.1.0",
-  "description": "",
+  "description": "Low complexity React / Redux form handling",
+  "homepage": "http://www.duxform.com",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kenschenke/duxform"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "form",
+    "autocomplete",
+    "redux",
+    "react-redux",
+    "duxform"
+  ],
   "scripts": {
     "test": "jest",
     "testbed": "./node_modules/.bin/webpack-dev-server --env=testbed",
