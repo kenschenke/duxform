@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import initialState from './initialState.json';
 import storeFactory from './store';
 import { App } from './components/App.jsx';
-require('./styles.css');
+import '../src/duxautocomplete.css';
 
 const store = storeFactory(initialState);
 
