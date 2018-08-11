@@ -1,6 +1,6 @@
 import { mapDuxInputDispatch } from '../../src/maps/DuxInput.map';
 
-describe('mapDuxInputDispatch handleBlur tests', () => {
+describe('mapDuxInputDispatch handleKeyDown tests', () => {
     test('not Enter', () => {
         const preventDefault = jest.fn();
         const event = {
@@ -32,6 +32,6 @@ describe('mapDuxInputDispatch handleBlur tests', () => {
         map.handleKeyDown(event, props);
         expect(preventDefault).toHaveBeenCalledTimes(1);
         expect(onEnterPressed).toHaveBeenCalledTimes(1);
-        expect(onEnterPressed).toHaveBeenCalledWith(form, field, value);
+        expect(onEnterPressed).toHaveBeenCalledWith(value, field, form);
     });
 });

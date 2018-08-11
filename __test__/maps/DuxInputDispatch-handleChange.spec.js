@@ -163,7 +163,7 @@ describe('mapDuxInputDispatch handleChange tests', () => {
         expect(formValidate).toHaveBeenCalledTimes(1);
         expect(formValidate).toHaveBeenCalledWith(form);
         expect(validate).toHaveBeenCalledTimes(1);
-        expect(validate).toHaveBeenCalledWith(value, form, field);
+        expect(validate).toHaveBeenCalledWith(value, field, form);
     });
 
     test('date, with validation fail', () => {
@@ -209,7 +209,7 @@ describe('mapDuxInputDispatch handleChange tests', () => {
         expect(formValidate).toHaveBeenCalledTimes(1);
         expect(formValidate).toHaveBeenCalledWith(form);
         expect(validate).toHaveBeenCalledTimes(1);
-        expect(validate).toHaveBeenCalledWith(value, form, field);
+        expect(validate).toHaveBeenCalledWith(value, field, form);
     });
 
     test('str, no validation', () => {
@@ -293,7 +293,7 @@ describe('mapDuxInputDispatch handleChange tests', () => {
         expect(formValidate).toHaveBeenCalledTimes(1);
         expect(formValidate).toHaveBeenCalledWith(form);
         expect(validate).toHaveBeenCalledTimes(1);
-        expect(validate).toHaveBeenCalledWith(value, form, field);
+        expect(validate).toHaveBeenCalledWith(value, field, form);
     });
 
     test('str, with validation fail', () => {
@@ -339,6 +339,6 @@ describe('mapDuxInputDispatch handleChange tests', () => {
         expect(formValidate).toHaveBeenCalledTimes(1);
         expect(formValidate).toHaveBeenCalledWith(form);
         expect(validate).toHaveBeenCalledTimes(1);
-        expect(validate).toHaveBeenCalledWith(value, form, field);
+        expect(validate).toHaveBeenCalledWith(value, field, form);
     });
 });

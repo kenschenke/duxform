@@ -156,7 +156,7 @@ describe('getInitData tests', () => {
         const actual = getInitData(props);
         expect(actual).toEqual(expected);
         expect(validate).toHaveBeenCalledTimes(1);
-        expect(validate).toHaveBeenCalledWith(defaultValue, form, name);
+        expect(validate).toHaveBeenCalledWith(defaultValue, name, form);
     });
 
     test('default value with validation failure', () => {
@@ -185,6 +185,6 @@ describe('getInitData tests', () => {
         const actual = getInitData(props);
         expect(actual).toEqual(expected);
         expect(validate).toHaveBeenCalledTimes(1);
-        expect(validate).toHaveBeenCalledWith(defaultValue, form, name);
+        expect(validate).toHaveBeenCalledWith(defaultValue, name, form);
     });
 });

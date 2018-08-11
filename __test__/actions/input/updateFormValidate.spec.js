@@ -111,7 +111,7 @@ describe('updateFormValidate tests', () => {
             }
         });
         expect(validateCallback).toHaveBeenCalledTimes(1);
-        expect(validateCallback).toHaveBeenCalledWith({field1:'field1', field2:'field2'});
+        expect(validateCallback).toHaveBeenCalledWith({field1:'field1', field2:'field2'}, form);
     });
 
     test('validate callback with no error', () => {
@@ -146,6 +146,6 @@ describe('updateFormValidate tests', () => {
             }
         });
         expect(validateCallback).toHaveBeenCalledTimes(1);
-        expect(validateCallback).toHaveBeenCalledWith({field1:'field1', field2:'field2'});
+        expect(validateCallback).toHaveBeenCalledWith({field1:'field1', field2:'field2'}, form);
     });
 });
