@@ -94,6 +94,7 @@ class AutoCompleteUi extends React.Component {
                         name="usstate"
                         className={'form-control' + (this.props.usstateValid ? '' : ' is-invalid')}
                         items={states}
+                        nextField="usstateallownew"
                     />
                     <small className="form-text text-danger" style={{height:'.8em'}}>
                         {this.props.usstateValid ? '' : 'Please type a valid American State'}
@@ -106,6 +107,7 @@ class AutoCompleteUi extends React.Component {
                         className="form-control"
                         items={states}
                         allowNewItems={true}
+                        nextField="visitedstates"
                     />
                     <small className="form-text text-muted">
                         Type an existing state or type a new one such as Puerto Rico
@@ -118,6 +120,7 @@ class AutoCompleteUi extends React.Component {
                         className={'form-control' + (this.props.visitedstatesValid ? '' : ' is-invalid')}
                         items={states}
                         allowMulti={true}
+                        nextField="recipients"
                     />
                     <small className="form-text text-danger" style={{height:'.8em'}}>
                         {this.props.visitedstatesValid ? '' : 'Please select from the list of valid American States'}
@@ -132,6 +135,7 @@ class AutoCompleteUi extends React.Component {
                         allowMulti={true}
                         allowNewItems={true}
                         validateItem={this.validateEmail}
+                        nextField="usstate"
                     />
                     <small className="form-text text-muted">
                         Select from the list of "example.com" addresses or type a new email address,
