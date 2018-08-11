@@ -7,7 +7,8 @@
     "test": "jest",
     "testbed": "./node_modules/.bin/webpack-dev-server --env=testbed",
     "website": "./node_modules/.bin/webpack-dev-server --env=website",
-    "website-dist": "./node_modules/.bin/webpack --env=website-dist"
+    "website-dist": "./node_modules/.bin/webpack --env=website-dist",
+    "prepare": "babel ./src --out-dir ./lib --source-maps --presets env,stage-0,react --plugins babel-plugin-add-module-exports"
   },
   "author": "Ken Schenke",
   "license": "MIT",
@@ -19,6 +20,7 @@
     "babel-cli": "^6.26.0",
     "babel-jest": "^23.4.0",
     "babel-loader": "^7.1.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",

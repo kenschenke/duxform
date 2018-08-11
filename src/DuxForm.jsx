@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { mapDuxFormProps, mapDuxFormDispatch } from './maps/DuxForm.map';
 import { connect } from 'react-redux';
 import { findFormField } from './helpers';
-import { DuxInputUi } from './DuxInput.jsx';
-import { DuxAutoCompleteUi } from './DuxAutoComplete.jsx';
+import { DuxInputUi } from './DuxInput';
+import { DuxAutoCompleteUi } from './DuxAutoComplete';
 
 class DuxFormUi extends React.Component {
     constructor(props) {
