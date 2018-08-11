@@ -1,4 +1,36 @@
 /**
+ * Splits a date string (U.S. format of MM/DD/YYYY) into an object breaking out those values.
+ *
+ * @param value
+ * @returns {*}
+ */
+const extractDateParts = value => {
+    let str = value;
+    if (typeof str !== 'string') {
+        str = str.toString();
+    }
+    const parts = str.split('/');
+
+    if (parts.length !== 3) {
+        return null;
+    }
+
+    let mon = parseInt(parts[0], 10);
+    let day = parseInt(parts[1], 10);
+    let year = parseInt(parts[2], 10);
+
+    if (year >= 0 && year <= 99) {
+        year += (year < 50) ? 2000 : 1900;
+    }
+
+    return {
+        Month: mon,
+        Day: day,
+        Year: year
+    };
+};
+
+/**
  * Search the DOM and return the HTMLElement object.
  *
  * @param formName
@@ -34,13 +66,13 @@ export const formatDate = value => {
     if (value instanceof Date) {
         date = value;
     } else {
-        date = Date.parse(value);
-        if (isNaN(date)) {
+        date = toDate(value);
+        if (!(date instanceof Date)) {
             return value;
         }
     }
 
-    return new Intl.DateTimeFormat().format(date);
+    return `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
 };
 
 /**
@@ -317,6 +349,59 @@ export const isFormValidOrPristine = (state, formName) => {
 };
 
 /**
+ * Returns true if the year is a leap year.
+ *
+ * @param year
+ * @returns {boolean}
+ */
+const isLeapYear = year => {
+    let isLeap = false;
+
+    if ((year % 4) === 0) {
+        isLeap = true;
+    }
+    if ((year % 100) === 0) {
+        isLeap = ((year % 400) === 0);
+    }
+
+    return isLeap;
+};
+
+/**
+ * Returns true if the date string (in U.S. format MM/DD/YYYY) is a valid date.  It
+ * considers leap years and number of days in each month.
+ *
+ * @param value
+ * @returns {boolean}
+ */
+const isValidDate = value => {
+    let parts = extractDateParts(value);
+    if (parts === null) {
+        return false;
+    }
+
+    const mlen = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    if (isNaN(parts.Month) || isNaN(parts.Day) || isNaN(parts.Year)) {
+        return false;
+    }
+
+    if (parts.Month < 1 || parts.Month > 12) {
+        return false;
+    }
+
+    let days = mlen[parts.Month-1];
+    if (parts.Month === 2 && isLeapYear(parts.Year)) {
+        days++;
+    }
+    if (parts.Day < 1 || parts.Day > days) {
+        return false;
+    }
+
+    return (parts.Year >= 1900 && parts.Year <= 2100);
+};
+
+/**
  * Normalizes the value in the field.  If the field type is a number and it's an empty string, the value is 0.  If
  * the data type is a string, make it upper case if forceUpper is true.  If the field specifies its own
  * normalize callback, utilize that.
@@ -380,6 +465,21 @@ export const parseValue = (value, props) => {
     }
 
     return value;
+};
+
+/**
+ * Takes a string in U.S. data format (MM/DD/YYYY) and converts it to a JavaScript Date object.
+ *
+ * @param value
+ * @returns {*}
+ */
+const toDate = value => {
+    if (!isValidDate(value)) {
+        return value;
+    }
+
+    let parts = extractDateParts(value);
+    return new Date(parts.Year, parts.Month-1, parts.Day);
 };
 
 /**
