@@ -17,7 +17,10 @@ required heavy customization to meet my needs or were overly complex.
 
 ## Getting Started
 
-*As soon as I get a NPM package together, I'll fill this in*
+```npm install duxform```
 
-*Documentation and website are coming soon.*
+Visit the website at [http://www.duxform.com](http://www.duxform.com) including full documentation and examples.
 
+## GitHub
+
+The GitHub repository is at [https://github.com/kenschenke/duxform](https://github.com/kenschenke/duxform)

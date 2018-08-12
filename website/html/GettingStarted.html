@@ -5,6 +5,13 @@
     to start using DuxForm.
 </p>
 
+<p>
+    This package consists of three React components: <code>&lt;DuxForm&gt;</code>, <code>&lt;DuxInput&gt;</code>, and
+    <code>&lt;DuxAutoComplete&gt;</code>.  DuxForm and DuxInput are thin wrappers around <code>&lt;form&gt;</code> and
+    <code>&lt;input&gt;</code>.  All attributes such as <code>method</code>, <code>target</code>,
+    or <code>className</code> are passed along to the underlying HTML tags.
+</p>
+
 <h4>Installation</h4>
 
 <pre>
@@ -13,12 +20,17 @@
 
 <p>
     If you are using the <code>&lt;DuxAutoComplete&gt;</code> component, you also need to link to the
-    <code>duxautocomplete.css</code> file in the <code>dist/</code> directory.
+    <code>duxautocomplete.css</code> file in the <code>node_modules/duxform/website/dist/</code> directory.
 </p>
 
 <pre>
     &lt;link rel="stylesheet" href="duxautocomplete.css"/&gt;
 </pre>
+
+<div class="alert alert-warning">
+    You might be tempted to use the duxautocomplete.css file in your project with webpack and an import statement.
+    This will work as long as you don't need to override any of the CSS in the file.
+</div>
 
 <h4>Redux Store</h4>
 
