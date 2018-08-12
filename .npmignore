@@ -1,8 +1,9 @@
-duxform.tgz
-.babelrc
+/.idea
+/duxform*.tgz
+/.babelrc
 .gitignore
-src
-node_modules
-testbed
-website
+/src
+/node_modules
+__test__
+/testbed
 webpack.*.js

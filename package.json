@@ -22,7 +22,7 @@
     "testbed": "./node_modules/.bin/webpack-dev-server --env=testbed",
     "website": "./node_modules/.bin/webpack-dev-server --env=website",
     "website-dist": "./node_modules/.bin/webpack --env=website-dist",
-    "prepare": "babel ./src --out-dir ./lib --source-maps --presets env,stage-0,react --plugins babel-plugin-add-module-exports"
+    "prepare": "npm run website-dist && babel ./src --out-dir ./lib --source-maps --presets env,stage-0,react --plugins babel-plugin-add-module-exports"
   },
   "author": "Ken Schenke",
   "license": "MIT",
