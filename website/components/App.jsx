@@ -1,7 +1,6 @@
 import React from 'react';
-import { TopicChooser } from './TopicChooser';
+import { NavBar } from './NavBar';
 import { Topic } from './Topic';
-import topics from '../topics.json';
 
 import IntroHtml from '../html/Intro.html';
 
@@ -35,75 +34,80 @@ import AutoCompleteSource from '../source/AutoComplete.txt';
 
 import PropertiesReferenceHtml from '../html/PropertiesReference.html';
 
-const topicMap = {
-    intro: {
+const topics = [
+    {
+        topic: 'intro',
         html: IntroHtml
     },
-    gettingstarted: {
+    {
+        topic: 'gettingstarted',
         component: GettingStarted,
         html: GettingStartedHtml,
         source: GettingStartedSource
     },
-    datatypes: {
+    {
+        topic: 'datatypes',
         html: DataTypesHtml
     },
-    inputtypes: {
+    {
+        topic: 'inputtypes',
         html: InputTypesHtml
     },
-    reduxstate: {
+    {
+        topic: 'reduxstate',
         html: ReduxStateHtml
     },
-    helpers: {
+    {
+        topic: 'helpers',
         html: HelpersHtml
     },
-    validation: {
+    {
+        topic: 'validation',
         component: Validation,
         html: ValidationHtml,
         source: ValidationSource
     },
-    asyncvalidation: {
+    {
+        topic: 'asyncvalidation',
         component: AsyncValidation,
         html: AsyncValidationHtml,
         source: AsyncValidationSource
     },
-    formatting: {
+    {
+        topic: 'formatting',
         component: Formatting,
         html: FormattingHtml,
         source: FormattingSource
     },
-    autocomplete: {
+    {
+        topic: 'autocomplete',
         component: AutoComplete,
         html: AutoCompleteHtml,
         source: AutoCompleteSource
     },
-    propertiesreference: {
+    {
+        topic: 'propertiesreference',
         html: PropertiesReferenceHtml
     }
-};
+];
 
 export const App = () => {
-    const topicComponents = topics.topics.map(topic => {
+    const topicComponents = topics.map(topic => {
         return (
             <Topic
                 key={topic.topic}
                 topic={topic.topic}
-                component={topicMap[topic.topic].component}
-                source={topicMap[topic.topic].source}
-                html={topicMap[topic.topic].html}
+                component={topic.component}
+                source={topic.source}
+                html={topic.html}
             />
         );
     });
 
     return (
-        <div className="container-fluid mt-3">
-            <div className="row">
-                <div className="col-2">
-                    <TopicChooser/>
-                </div>
-                <div className="col">
-                    {topicComponents}
-                </div>
-            </div>
+        <div className="container">
+            <NavBar/>
+            {topicComponents}
         </div>
     );
 };

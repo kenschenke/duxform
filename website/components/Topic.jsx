@@ -39,7 +39,7 @@ class TopicUi extends React.Component {
                         {React.createElement(this.props.component)}
                     </div>
                     <div className="col">
-                        <h5 className="text-muted">Redux State</h5>
+                        <h5>Redux State</h5>
                         <SyntaxHighlighter language="javascript" style={agate}>
                             {this.props.state}
                         </SyntaxHighlighter>
@@ -56,9 +56,9 @@ class TopicUi extends React.Component {
                     </div>
                 </div>
                 }
-                <div className="row" style={{borderTop:'1px solid #ccc',textAlign:'center',height:'3em'}}>
+                <div id="footer" className="row mt-3">
                     <div className="col">
-                        <small className="text-muted">Copyright 2018 by Ken Schenke</small>
+                        <small>Copyright 2018 by Ken Schenke</small>
                     </div>
                 </div>
             </div>

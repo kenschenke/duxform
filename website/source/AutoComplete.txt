@@ -64,7 +64,7 @@ class AutoCompleteUi extends React.Component {
                         allowNewItems={true}
                         nextField="visitedstates"
                     />
-                    <small className="form-text text-muted">
+                    <small className="form-text">
                         Type an existing state or type a new one such as Puerto Rico
                     </small>
                 </div>
@@ -92,7 +92,7 @@ class AutoCompleteUi extends React.Component {
                         validateItem={this.validateEmail}
                         nextField="usstate"
                     />
-                    <small className="form-text text-muted">
+                    <small className="form-text">
                         Select from the list of "example.com" addresses or type a new email address,
                         followed by a comma, semi-colon, or Enter.  Email addresses are validated to
                         match a valid email address.  Try typing an invalid address such as "john@foo".

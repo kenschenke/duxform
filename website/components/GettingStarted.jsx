@@ -14,7 +14,7 @@ export class GettingStarted extends React.Component {
                     <label>Age</label>
                     <DuxInput name="age" dataType="num" className="form-control" nextField="fullname"/>
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-secondary">Submit</button>
             </DuxForm>
         );
     }

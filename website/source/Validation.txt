@@ -51,7 +51,7 @@ class ValidationUi extends React.Component {
                         <option value="USA">United States</option>
                     </DuxInput>
                 </div>
-                <button type="button" className="btn btn-primary" disabled={!this.props.formValid}>Submit</button>
+                <button type="button" className="btn btn-secondary" disabled={!this.props.formValid}>Submit</button>
                 <small className="form-text text-danger">{this.props.formError}</small>
             </DuxForm>
         );
