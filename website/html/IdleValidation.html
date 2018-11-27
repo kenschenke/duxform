@@ -1,0 +1,51 @@
+<h3>Delayed Validation</h3>
+
+<p>
+    Validating the field as the user types can be a little aggressive. Especially if the user is being provided
+    feedback as they type.  It can be frustrating for users to be told their email address is invalid after typing
+    just one letter.  The <code>idleValidateTimeout</code> and <code>onIdleValidate</code> properties of
+    <code>DuxInput</code> allow processing to occur after the user stops typing.  This is the perfect time to
+    validate the field value as a whole.  The onIdleValidate function returns an error string if the field is
+    invalid or undefined if valid.
+</p>
+
+<p>
+    The <code>idleValidateTimeout</code> property specifies the number of milliseconds to delay.  As the user continues to
+    type, the timer is reset to 0.  The <code>onIdleValidate</code> function is called only after the user does not
+    type anything for the specified number of milliseconds.  The function should return <strong>undefined</strong> if
+    the field is valid or an error message string if invalid.
+</p>
+
+<h4>Properties</h4>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Property</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>onIdleValidate</td>
+        <td>(none)</td>
+        <td>Callback function that is called after <code>idleValidateTimeout</code> milliseconds have elapsed</td>
+    </tr>
+    <tr>
+        <td>idleValidateTimeout</td>
+        <td>0</td>
+        <td>The onIdleValidate function is called after this number of milliseconds have elapsed</td>
+    </tr>
+    </tbody>
+</table>
+
+<h4>Example</h4>
+
+<p>
+    This example demonstrates validating an email address as the user types.  Validation does not occur until the
+    user has not typed anything for at least 2 seconds.  Notice that if an invalid email address is typed and indicated
+    as invalid, the error message goes away when the user starts typing again.  This is because the
+    <code>DuxInput</code> component does not specify an <code>onValidate</code> callback.  Without this callback, the
+    field is set to valid when changes occur.
+</p>

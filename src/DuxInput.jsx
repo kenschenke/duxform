@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { mapDuxInputProps, mapDuxInputDispatch } from './maps/DuxInput.map';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 export class DuxInputUi extends React.Component {
     constructor(props) {
@@ -9,6 +10,8 @@ export class DuxInputUi extends React.Component {
 
         this._input = null;
         this._select = null;
+        this._idleHandler = null;
+
         props.init(props);
     }
 
@@ -28,7 +31,18 @@ export class DuxInputUi extends React.Component {
         if (this.props.type === 'radio' && this.props.defaultChecked) {
             this.props.initValue(this.props.value, this.props);
         }
+
+        if (this.props.onIdleValidate && this.props.idleValidateTimeout) {
+            this._idleHandler = _.debounce(this.props.handleIdleValidate, this.props.idleValidateTimeout);
+        }
     }
+
+    handleChange = event => {
+        this.props.handleChange(event, this.props);
+        if (this._idleHandler) {
+            this._idleHandler(event.target.value, this.props);
+        }
+    };
 
     render() {
         // determine which props to pass to child elements
@@ -68,6 +82,9 @@ export class DuxInputUi extends React.Component {
         delete childProps.value;
         delete childProps.formValue;
         delete childProps.defaultValue;
+        delete childProps.idleValidateTimeout;
+        delete childProps.onIdleValidate;
+        delete childProps.handleIdleValidate;
 
         if (this.props.type === 'select' || this.props.type === 'textarea') {
             delete childProps.type;
@@ -81,7 +98,7 @@ export class DuxInputUi extends React.Component {
         if (this.props.type === 'select') {
             return (
                 <select
-                    onChange={e => this.props.handleChange(e, this.props)}
+                    onChange={e => this.handleChange(e)}
                     ref={select => this._select=select}
                     value={this.props.value}
                     {...childProps}
@@ -95,7 +112,7 @@ export class DuxInputUi extends React.Component {
             return (
                 <input
                     ref={input => this._input=input}
-                    onChange={e => this.props.handleChange(e, this.props)}
+                    onChange={e => this.handleChange(e)}
                     {...childProps}
                     checked={this.props.value}
                 />
@@ -106,7 +123,7 @@ export class DuxInputUi extends React.Component {
             return (
                 <input
                     ref={input => this._input=input}
-                    onChange={e => this.props.handleChange(e, this.props)}
+                    onChange={e => this.handleChange(e)}
                     {...childProps}
                     value={this.props.value}
                     checked={this.props.value === this.props.formValue}
@@ -117,7 +134,7 @@ export class DuxInputUi extends React.Component {
         if (this.props.type === 'textarea') {
             return (
                 <textarea
-                    onChange={e => this.props.handleChange(e, this.props)}
+                    onChange={e => this.handleChange(e)}
                     {...childProps}
                     value={this.props.value}
                     onBlur={e => this.props.handleBlur(e, this.props)}
@@ -132,7 +149,7 @@ export class DuxInputUi extends React.Component {
                 ref={input => this._input=input}
                 onKeyDown={e => this.props.handleKeyDown(e, this.props)}
                 onKeyPress={e => this.props.handleKeyPress(e, this.props)}
-                onChange={e => this.props.handleChange(e, this.props)}
+                onChange={e => this.handleChange(e)}
                 onBlur={e => this.props.handleBlur(e, this.props)}
                 onFocus={() => this.props.handleFocus(this.props)}
                 {...childProps}
@@ -159,8 +176,10 @@ DuxInputUi.propTypes = {
     normalize: PropTypes.func,
     forceUpper: PropTypes.bool,
     trim: PropTypes.bool,
+    idleValidateTimeout: PropTypes.number.isRequired,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    onIdleValidate: PropTypes.func,
 
     // These props are injected by the <form> element
     formName: PropTypes.string.isRequired,
@@ -177,7 +196,8 @@ DuxInputUi.propTypes = {
     handleKeyDown: PropTypes.func.isRequired,
     handleKeyPress: PropTypes.func.isRequired,
     handleFocus: PropTypes.func.isRequired,
-    handleBlur: PropTypes.func.isRequired
+    handleBlur: PropTypes.func.isRequired,
+    handleIdleValidate: PropTypes.func.isRequired
 };
 
 export const DuxInput = connect(mapDuxInputProps, mapDuxInputDispatch)(DuxInputUi);
@@ -189,5 +209,6 @@ DuxInput.defaultProps = {
     showDollar: false,
     round: true,
     forceUpper: false,
-    trim: true
+    trim: true,
+    idleValidateTimeout: 0
 };

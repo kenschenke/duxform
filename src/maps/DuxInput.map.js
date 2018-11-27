@@ -102,6 +102,16 @@ export const mapDuxInputDispatch = dispatch => {
             }
         },
 
+        handleIdleValidate(value, props) {
+            const errorMsg = props.onIdleValidate(value);
+            if (errorMsg !== undefined) {
+                dispatch(fieldData(props.formName, props.name, {
+                    error: errorMsg,
+                    valid: false
+                }));
+            }
+        },
+
         handleKeyDown(event, props) {
             if (event.key === 'Enter') {
                 event.preventDefault();

@@ -20,6 +20,10 @@ import { Validation } from './Validation';
 import ValidationHtml from '../html/Validation.html';
 import ValidationSource from '../source/Validation.txt';
 
+import { IdleValidation } from './IdleValidation';
+import IdleValidationHtml from '../html/IdleValidation.html';
+import IdleValidationSource from '../source/IdleValidation.txt';
+
 import { AsyncValidation } from './AsyncValidation';
 import AsyncValidationHtml from '../html/AsyncValidation.html';
 import AsyncValidationSource from '../source/AsyncValidation.txt';
@@ -66,6 +70,12 @@ const topics = [
         component: Validation,
         html: ValidationHtml,
         source: ValidationSource
+    },
+    {
+        topic: 'idlevalidation',
+        component: IdleValidation,
+        html: IdleValidationHtml,
+        source: IdleValidationSource
     },
     {
         topic: 'asyncvalidation',

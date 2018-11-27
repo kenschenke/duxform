@@ -46,6 +46,7 @@ const NavBarUi = props => {
                             <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('reduxstate')}}>Redux State</a>
                             <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('helpers')}}>Helper Functions</a>
                             <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('validation')}}>Validation</a>
+                            <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('idlevalidation')}}>Delayed Validation</a>
                             <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('asyncvalidation')}}>Asynchronous Validation</a>
                             <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('formatting')}}>Formatting</a>
                             <a className="dropdown-item" href="#" onClick={e => {e.preventDefault(); props.topicClicked('autocomplete')}}>Autocomplete Lists</a>
