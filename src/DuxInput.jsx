@@ -4,7 +4,7 @@ import { mapDuxInputProps, mapDuxInputDispatch } from './maps/DuxInput.map';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-export class DuxInputUi extends React.Component {
+class DuxInputUi extends React.Component {
     constructor(props) {
         super(props);
 
