@@ -200,7 +200,7 @@ DuxInputUi.propTypes = {
     handleIdleValidate: PropTypes.func.isRequired
 };
 
-export const DuxInput = connect(mapDuxInputProps, mapDuxInputDispatch)(DuxInputUi);
+const DuxInput = connect(mapDuxInputProps, mapDuxInputDispatch)(DuxInputUi);
 
 DuxInput.defaultProps = {
     dataType: 'str',
@@ -212,3 +212,5 @@ DuxInput.defaultProps = {
     trim: true,
     idleValidateTimeout: 0
 };
+
+export default DuxInput;

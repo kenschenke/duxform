@@ -104,4 +104,4 @@ DuxFormUi.propTypes = {
     initialFocus: PropTypes.string
 };
 
-export const DuxForm = connect(mapDuxFormProps, mapDuxFormDispatch)(DuxFormUi);
+export default connect(mapDuxFormProps, mapDuxFormDispatch)(DuxFormUi);

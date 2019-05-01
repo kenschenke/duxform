@@ -1,6 +1,6 @@
 import C from '../constants';
 import { combineReducers } from 'redux';
-import { DuxFormReducer } from '../../src/reducer';
+import DuxFormReducer from '../../src/reducer';
 
 const topicReducer = (state='', action) => {
     switch (action.type) {

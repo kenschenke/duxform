@@ -180,4 +180,4 @@ DuxAutoCompleteUi.defaultProps = {
     allowNewItems: false
 };
 
-export const DuxAutoComplete = connect(mapDuxAutoCompleteProps, mapDuxAutoCompleteDispatch)(DuxAutoCompleteUi);
+export default connect(mapDuxAutoCompleteProps, mapDuxAutoCompleteDispatch)(DuxAutoCompleteUi);
