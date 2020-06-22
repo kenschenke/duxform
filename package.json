@@ -1,6 +1,6 @@
 {
   "name": "duxform",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Low complexity React / Redux form handling",
   "homepage": "http://www.duxform.com",
   "main": "index.js",
