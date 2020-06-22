@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { DuxAutoCompleteDropdown } from './DuxAutoCompleteDropdown';
 import {findFormField} from "./helpers";
 
-export class DuxAutoCompleteUi extends React.Component {
+class DuxAutoCompleteUi extends React.Component {
     constructor(props) {
         super(props);
 
