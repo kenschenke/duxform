@@ -163,8 +163,14 @@
 <pre>
     import {setAutoCompleteSingleSelectValue} from 'duxform';
 
-    setAutoCompleteSingleSelectValue(formName, fieldName, value, valid = true);
+    setAutoCompleteSingleSelectValue(formName, fieldName, value, items, valid = true);
 </pre>
+
+<p>
+    The value must match one of the items in the items array. The items parameter must
+    be the same array passed as the <code>items</code> property to
+    the <code>DuxAutoComplete</code> component.
+</p>
 
 <h4>setAutoCompleteMultiSelectValues</h4>
 
@@ -175,8 +181,14 @@
 <pre>
     import {setAutoCompleteMultiSelectValues} from 'duxform';
 
-    setAutoCompleteMultiSelectValues(formName, name, values, valid = true);
+    setAutoCompleteMultiSelectValues(formName, name, values, items, valid = true);
 </pre>
+
+<p>
+    The values parameter is an array of values that each must match one of the items in
+    the items array. The items parameter must be the same array passed as
+    the <code>items</code> property to the <code>DuxAutoComplete</code> component.
+</p>
 
 <h4>setFormFieldValue</h4>
 

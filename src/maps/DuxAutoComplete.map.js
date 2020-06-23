@@ -20,6 +20,39 @@ export const mapDuxAutoCompleteDispatch = dispatch => {
                 pristine: true
             }));
             dispatch(autocompleteDropdownMatches(props.formName, props.name, []));
+
+            if (props.defaultValue !== undefined) {
+                if (props.allowMulti) {
+                    if (Array.isArray(props.defaultValue)) {
+                        let selected = [];
+                        props.defaultValue.forEach(value => {
+                            const matches = props.items.filter(item => value === item.value);
+                            if (matches.length === 1) {
+                                selected.push({
+                                    label: matches[0].label,
+                                    labelU: matches[0].label.toUpperCase(),
+                                    value
+                                });
+                            }
+                        });
+                        if (selected.length) {
+                            dispatch(fieldData(props.formName, props.name, {
+                                valid: true,
+                                selectedItems: selected
+                            }));
+                        }
+                    }
+                } else {
+                    const matches = props.items.filter(item => props.defaultValue === item.value);
+                    if (matches.length === 1) {
+                        dispatch(fieldData(props.formName, props.name, {
+                            valid: true,
+                            value: matches[0].value,
+                            inputValue: matches[0].label
+                        }));
+                    }
+                }
+            }
         },
 
         setDropdownMatches(name, formName, matches) {

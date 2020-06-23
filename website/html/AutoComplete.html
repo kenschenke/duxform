@@ -26,6 +26,11 @@
             <td>Array of items (see Items, below)</td>
         </tr>
         <tr>
+            <td>defaultValue</td>
+            <td>(none)</td>
+            <td>The default value or values from the items (see Default Values, below)</td>
+        </tr>
+        <tr>
             <td>allowMulti</td>
             <td>false</td>
             <td>True of the user is allowed to select multiple items in the list</td>
@@ -73,6 +78,13 @@
         </tr>
     </tbody>
 </table>
+
+<h4>Default Values</h4>
+
+<p>
+    If supplying a value in the <code>defaultValue</code> field, it must match the <code>value</code> of one of the
+    items in the <code>Items Array</code>.  For multi-selection, an array of values is expected.
+</p>
 
 <h4>Redux Store</h4>
 

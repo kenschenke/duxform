@@ -219,14 +219,23 @@ export const getAutoCompleteMultiSelectValues = (state, formName, name) => {
  * @param formName
  * @param name
  * @param value
+ * @param items
  * @param valid
  * @returns {Function}
  */
-export const setAutoCompleteSingleSelectValue = (formName, name, value, valid = true) => dispatch => {
+export const setAutoCompleteSingleSelectValue = (formName, name, value, items, valid = true) => dispatch => {
+    let inputValue = value;
+    if (Array.isArray(items)) {
+        const matches = items.filter(item => item.value === value);
+        if (matches.length === 1) {
+            inputValue = matches[0].label;
+        }
+    }
+
     dispatch(fieldData(formName, name, {
-        value: value,
-        inputValue: value,
-        valid: valid,
+        value,
+        inputValue,
+        valid,
         pristine: false,
         error: ''
     }));
@@ -238,13 +247,27 @@ export const setAutoCompleteSingleSelectValue = (formName, name, value, valid = 
  * @param formName
  * @param name
  * @param values
+ * @param items
  * @param valid
  * @returns {Function}
  */
-export const setAutoCompleteMultiSelectValues = (formName, name, values, valid = true) => dispatch => {
+export const setAutoCompleteMultiSelectValues = (formName, name, values, items, valid = true) => dispatch => {
+    let selectedItems = [];
+    if (Array.isArray(values)) {
+        values.forEach(value => {
+            const matches = items.filter(item => value === item.value);
+            if (matches.length === 1) {
+                selectedItems.push({
+                    label: matches[0].label,
+                    labelU: matches[0].label.toUpperCase(),
+                    value
+                });
+            }
+        });
+    }
     dispatch(fieldData(formName, name, {
-        valid: valid,
-        selectedItems: values,
+        valid,
+        selectedItems,
         inputValue: '',
         pristine: false,
         error: ''

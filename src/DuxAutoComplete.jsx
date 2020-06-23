@@ -88,6 +88,7 @@ class DuxAutoCompleteUi extends React.Component {
         delete childProps.onKeyDown;
         delete childProps.onKeyPress;
         delete childProps.value;
+        delete childProps.defaultValue;
         delete childProps.formName;
         delete childProps.items;
         delete childProps.allowMulti;
