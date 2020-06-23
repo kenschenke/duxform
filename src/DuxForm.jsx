@@ -70,7 +70,8 @@ class DuxFormUi extends React.Component {
                     formValidate: name => this.props.formValidate(name,this.props.onValidate)
                 });
             } else if (child.hasOwnProperty('props') && typeof child.props.children === 'object') {
-                if (child.hasOwnProperty('type') && typeof child.type === 'function' && (child.type.WrappedComponent.name === 'DuxInputUi' || child.type.WrappedComponent.name === 'DuxAutoCompleteUi')) {
+                // console.log(child.type.WrappedComponent.name);
+                if (child.hasOwnProperty('type') && typeof child.type === 'function' && (child.type.WrappedComponent.name === 'DuxInput' || child.type.WrappedComponent.name === 'DuxAutoCompleteUi')) {
                     return React.cloneElement(child, {
                         formName: this.props.name,
                         formValidate: name => this.props.formValidate(name,this.props.onValidate),
@@ -82,7 +83,7 @@ class DuxFormUi extends React.Component {
                     });
                 }
             } else if (typeof child.type !== 'string') {
-                if (child.hasOwnProperty('type') && child.type.hasOwnProperty('WrappedComponent') && (child.type.WrappedComponent.name === 'DuxInputUi' || child.type.WrappedComponent.name === 'DuxAutoCompleteUi')) {
+                if (child.hasOwnProperty('type') && child.type.hasOwnProperty('WrappedComponent') && (child.type.WrappedComponent.name === 'DuxInput' || child.type.WrappedComponent.name === 'DuxAutoCompleteUi')) {
                     return React.cloneElement(child, {
                         formName: this.props.name,
                         formValidate: name => this.props.formValidate(name,this.props.onValidate)
@@ -104,4 +105,4 @@ DuxFormUi.propTypes = {
     initialFocus: PropTypes.string
 };
 
-export default connect(mapDuxFormProps, mapDuxFormDispatch)(DuxFormUi);
+export const DuxForm = connect(mapDuxFormProps, mapDuxFormDispatch)(DuxFormUi);

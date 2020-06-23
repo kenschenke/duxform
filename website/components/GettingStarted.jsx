@@ -1,6 +1,6 @@
 import React from 'react';
-import DuxForm from '../../src/DuxForm';
-import DuxInput from '../../src/DuxInput';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxInput } from '../../src/DuxInput';
 
 export class GettingStarted extends React.Component {
     render() {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { DuxAutoCompleteDropdown } from './DuxAutoCompleteDropdown';
 import {findFormField} from "./helpers";
 
-class DuxAutoCompleteUi extends React.Component {
+export class DuxAutoCompleteUi extends React.Component {
     constructor(props) {
         super(props);
 
@@ -181,4 +181,4 @@ DuxAutoCompleteUi.defaultProps = {
     allowNewItems: false
 };
 
-export default connect(mapDuxAutoCompleteProps, mapDuxAutoCompleteDispatch)(DuxAutoCompleteUi);
+export const DuxAutoComplete = connect(mapDuxAutoCompleteProps, mapDuxAutoCompleteDispatch)(DuxAutoCompleteUi);

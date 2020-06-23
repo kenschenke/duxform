@@ -4,7 +4,7 @@ import { mapDuxInputProps, mapDuxInputDispatch } from './maps/DuxInput.map';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-class DuxInputUi extends React.Component {
+export class DuxInputUi extends React.Component {
     constructor(props) {
         super(props);
 
@@ -200,7 +200,7 @@ DuxInputUi.propTypes = {
     handleIdleValidate: PropTypes.func.isRequired
 };
 
-const DuxInput = connect(mapDuxInputProps, mapDuxInputDispatch)(DuxInputUi);
+export const DuxInput = connect(mapDuxInputProps, mapDuxInputDispatch)(DuxInputUi);
 
 DuxInput.defaultProps = {
     dataType: 'str',
@@ -213,4 +213,3 @@ DuxInput.defaultProps = {
     idleValidateTimeout: 0
 };
 
-export default DuxInput;

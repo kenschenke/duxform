@@ -1,6 +1,6 @@
-const DuxForm = require('./lib/DuxForm');
-const DuxInput = require('./lib/DuxInput');
-const DuxAutoComplete = require('./lib/DuxAutoComplete');
+const DuxForm = require('./lib/DuxForm').DuxForm;
+const DuxInput = require('./lib/DuxInput').DuxInput;
+const DuxAutoComplete = require('./lib/DuxAutoComplete').DuxAutoComplete;
 const DuxFormReducer  = require('./lib/reducer');
 
 const findFormField = require('./lib/helpers').findFormField;

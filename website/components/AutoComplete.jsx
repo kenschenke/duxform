@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DuxForm from '../../src/DuxForm';
-import DuxAutoComplete from '../../src/DuxAutoComplete';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxAutoComplete } from '../../src/DuxAutoComplete';
 import { getFormFieldError, isFieldValidOrPristine } from '../../src/helpers';
 
 const mapProps = state => {
