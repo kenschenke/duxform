@@ -1,6 +1,6 @@
 import React from 'react';
-import DuxForm from '../../src/DuxForm';
-import DuxInput from '../../src/DuxInput';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxInput } from '../../src/DuxInput';
 
 export class Formatting extends React.Component {
     formatNumber = value => {

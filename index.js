@@ -14,6 +14,7 @@ const isFieldValidOrPristine = require('./lib/helpers').isFieldValidOrPristine;
 const isFormValid = require('./lib/helpers').isFormValid;
 const isFormValidOrPristine = require('./lib/helpers').isFormValidOrPristine;
 
+const clearAutoCompleteSelection = require('./lib/actions-autocomplete').clearAutoCompleteSelection;
 const getAutoCompleteMultiSelectValues = require('./lib/actions-autocomplete').getAutoCompleteMultiSelectValues;
 const setAutoCompleteSingleSelectValue = require('./lib/actions-autocomplete').setAutoCompleteSingleSelectValue;
 const setAutoCompleteMultiSelectValues = require('./lib/actions-autocomplete').setAutoCompleteMultiSelectValues;
@@ -37,6 +38,7 @@ module.exports = {
     isFormValid: isFormValid,
     isFormValidOrPristine: isFormValidOrPristine,
 
+    clearAutoCompleteSelection: clearAutoCompleteSelection,
     getAutoCompleteMultiSelectValues: getAutoCompleteMultiSelectValues,
     setAutoCompleteSingleSelectValue: setAutoCompleteSingleSelectValue,
     setAutoCompleteMultiSelectValues: setAutoCompleteMultiSelectValues,

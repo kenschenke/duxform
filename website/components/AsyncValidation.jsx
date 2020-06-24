@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DuxForm from '../../src/DuxForm';
-import DuxInput from '../../src/DuxInput';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxInput } from '../../src/DuxInput';
 import { connect } from 'react-redux';
 import { getFormData, getFormFieldValue } from '../../src/helpers';
 

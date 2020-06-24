@@ -201,6 +201,17 @@ export const autocompleteUpArrowPressed = (formName, name) => (dispatch, getStat
     autocompleteEnsureItemIsVisible(formName, name, newHighlighted);
 };
 
+export const clearAutoCompleteSelection = (formName, name) => dispatch => {
+    dispatch(fieldData(formName, name, {
+        value: undefined,
+        selectedItems: [],
+        inputValue: '',
+        valid: false,
+        pristine: false,
+        error: ''
+    }));
+};
+
 /**
  * Returns the array of selected items in an auto-complete field.
  *

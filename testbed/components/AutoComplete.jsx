@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DuxForm from '../../src/DuxForm';
-import DuxAutoComplete from '../../src/DuxAutoComplete';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxAutoComplete } from '../../src/DuxAutoComplete';
 import { getFormFieldError, isFieldValidOrPristine } from '../../src/helpers';
-import { setAutoCompleteSingleSelectValue, setAutoCompleteMultiSelectValues } from '../../src/actions-autocomplete';
+import { clearAutoCompleteSelection, setAutoCompleteSingleSelectValue,
+    setAutoCompleteMultiSelectValues } from '../../src/actions-autocomplete';
 
 const stateItems = [
     {label:'Alabama', value:'AL'},
@@ -72,6 +73,10 @@ const mapProps = state => {
 
 const mapDispatch = dispatch => {
     return {
+        clearSelection(name) {
+            dispatch(clearAutoCompleteSelection('autocomplete', name));
+        },
+
         setSingleValue() {
             dispatch(setAutoCompleteSingleSelectValue("autocomplete", "singleset", "MO", stateItems));
         },
@@ -127,7 +132,7 @@ class AutoCompleteUi extends React.Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Single Selection, With Set</label>
+                    <label>Single Selection, With Set And Clear</label>
                     <DuxAutoComplete
                         className="form-control"
                         name="singleset"
@@ -137,6 +142,7 @@ class AutoCompleteUi extends React.Component {
                         nextField="multinonew"
                     />
                     <button type="button" className="btn btn-secondary" onClick={this.props.setSingleValue}>Set Value</button>
+                    <button type="button" className="btn btn-secondary ml-2" onClick={() => this.props.clearSelection('singleset')}>Clear Selection</button>
                 </div>
                 <div className="form-group">
                     <label>Multi Selection, No New Items</label>
@@ -162,7 +168,7 @@ class AutoCompleteUi extends React.Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Multi Selection, With Set</label>
+                    <label>Multi Selection, With Set And Clear</label>
                     <DuxAutoComplete
                         className="form-control"
                         name="multiset"
@@ -172,6 +178,7 @@ class AutoCompleteUi extends React.Component {
                         nextField="validateitem"
                     />
                     <button type="button" className="btn btn-secondary" onClick={this.props.setMultiValue}>Set Value</button>
+                    <button type="button" className="btn btn-secondary ml-2" onClick={() => this.props.clearSelection('multiset')}>Clear Selection</button>
                 </div>
                 <div className="form-group">
                     <label>Item Validation</label>
@@ -225,6 +232,7 @@ AutoCompleteUi.propTypes = {
     singleDefaultValueValid: PropTypes.bool.isRequired,
     multiDefaultValueValid: PropTypes.bool.isRequired,
 
+    clearSelection: PropTypes.func.isRequired,
     setSingleValue: PropTypes.func.isRequired,
     setMultiValue: PropTypes.func.isRequired
 };

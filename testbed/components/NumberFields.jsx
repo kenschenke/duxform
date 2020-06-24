@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DuxForm from '../../src/DuxForm';
-import DuxInput from '../../src/DuxInput';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxInput } from '../../src/DuxInput';
 import { setFormFieldValue } from '../../src/actions-input';
 
 const mapProps = state => {

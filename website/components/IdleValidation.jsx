@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getFormFieldError, isFieldValid } from '../../src/helpers';
 import { connect } from 'react-redux';
-import DuxForm from '../../src/DuxForm';
-import DuxInput from '../../src/DuxInput';
+import { DuxForm } from '../../src/DuxForm';
+import { DuxInput } from '../../src/DuxInput';
 
 const mapProps = state => {
     return {
