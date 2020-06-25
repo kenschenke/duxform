@@ -1,5 +1,5 @@
 import C from '../../src/constants';
-import { DuxFormReducer } from '../../src/reducer';
+import DuxFormReducer from '../../src/reducer';
 
 describe('DuxFormReducer REFORM_SET_FIELD_DATA', () => {
     test('form does not exist', () => {
