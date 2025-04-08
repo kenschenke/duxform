@@ -1,7 +1,8 @@
-import appReducer from './appReducer';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { formsReducer } from '../../src/store/slices/formsSlice';
 
-export default (initialState={}) => {
-    return applyMiddleware(thunk)(createStore)(appReducer, initialState)
-}
+export const store = configureStore({
+    reducer: {
+        forms: formsReducer,
+    },
+});

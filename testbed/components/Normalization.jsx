@@ -1,30 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { DuxForm } from '../../src/DuxForm';
-import { DuxInput } from '../../src/DuxInput';
-import { setFormFieldValue } from '../../src/actions-input';
+import { useDispatch } from 'react-redux';
+import DuxForm from '../../src/components/DuxForm.jsx';
+import DuxInput from '../../src/components/DuxInput.jsx';
+import { setFormFieldValue } from '../../src/store';
 
-const mapProps = state => {
-    return {
+function Normalization() {
+    const dispatch = useDispatch();
 
-    };
-};
-
-const mapDispatch = dispatch => {
-    return {
-        noDefaultSetClicked() {
-            dispatch(setFormFieldValue('normalization', 'nodefault', '1112223333'));
-        },
-
-        defaultSetClicked() {
-            dispatch(setFormFieldValue('normalization', 'defaultvalue', '1234567890'));
-        }
-    };
-};
-
-class NormalizationUi extends React.Component {
-    formatPhone = value => {
+    const formatPhone = value => {
         if (value.length !== 10) {
             return value;
         }
@@ -32,39 +14,48 @@ class NormalizationUi extends React.Component {
         return '(' + value.substr(0,3) + ') ' + value.substr(3,3) + '-' + value.substr(6);
     };
 
-    normalizePhone = value => {
+    const normalizePhone = value => {
         return value.replace(/[^0-9]/g, '');
     };
 
-    render() {
-        return (
-            <DuxForm name="normalization">
-                <div className="form-group">
-                    <label>Phone (No Default)</label>
-                    <div className="input-group">
-                        <DuxInput name="nodefault" className="form-control" format={this.formatPhone} normalize={this.normalizePhone}/>
-                        <div className="input-group-append">
-                            <button type="button" className="btn btn-secondary" onClick={this.props.noDefaultSetClicked}>Set</button>
-                        </div>
+    const noDefaultSetClicked = () => {
+        dispatch(setFormFieldValue({
+            form: 'normalization',
+            field: 'nodefault',
+            value: '1112223333',
+        }));
+    };
+
+    const defaultSetClicked = () => {
+        dispatch(setFormFieldValue({
+            form: 'normalization',
+            field: 'defaultvalue',
+            value: '1234567890',
+        }));
+    };
+
+    return (
+        <DuxForm name="normalization">
+            <div className="form-group">
+                <label>Phone (No Default)</label>
+                <div className="input-group">
+                    <DuxInput name="nodefault" className="form-control" format={formatPhone} normalize={normalizePhone}/>
+                    <div className="input-group-append">
+                        <button type="button" className="btn btn-secondary" onClick={noDefaultSetClicked}>Set</button>
                     </div>
                 </div>
-                <div className="form-group">
-                    <label>Phone (With Default)</label>
-                    <div className="input-group">
-                        <DuxInput name="defaultvalue" className="form-control" format={this.formatPhone} normalize={this.normalizePhone} defaultValue="8165551212"/>
-                        <div className="input-group-append">
-                            <button type="button" className="btn btn-secondary" onClick={this.props.defaultSetClicked}>Set</button>
-                        </div>
+            </div>
+            <div className="form-group">
+                <label>Phone (With Default)</label>
+                <div className="input-group">
+                    <DuxInput name="defaultvalue" className="form-control" format={formatPhone} normalize={normalizePhone} defaultValue="8165551212"/>
+                    <div className="input-group-append">
+                        <button type="button" className="btn btn-secondary" onClick={defaultSetClicked}>Set</button>
                     </div>
                 </div>
-            </DuxForm>
-        );
-    }
+            </div>
+        </DuxForm>
+    );
 }
 
-NormalizationUi.propTypes = {
-    noDefaultSetClicked: PropTypes.func.isRequired,
-    defaultSetClicked: PropTypes.func.isRequired
-};
-
-export const Normalization = connect(mapProps, mapDispatch)(NormalizationUi);
+export default Normalization;

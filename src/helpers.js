@@ -62,14 +62,9 @@ export const findFormField = (formName, name) => {
  * @returns {*}
  */
 export const formatDate = value => {
-    let date;
-    if (value instanceof Date) {
-        date = value;
-    } else {
-        date = toDate(value);
-        if (!(date instanceof Date)) {
-            return value;
-        }
+    const date = new Date(value);
+    if (isNaN(date.valueOf())) {
+        return value;
     }
 
     return `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
@@ -83,29 +78,30 @@ export const formatDate = value => {
  * @returns {string}
  */
 export const formatNumber = (value, props) => {
-    value = toNumber(value, props.precision);
-    value /= Math.pow(10, props.precision);
+    const { precision = 0, showDollar = false, showCommas = false } = props;
+    value = toNumber(value, precision);
+    value /= Math.pow(10, precision);
 
     let str = value.toString();
     let x = str.split('.');
     let x1 = x[0];
     let x2 = x.length > 1 ? '.' + x[1] : '';
-    if (x2.length === 0 && props.precision > 0) {
+    if (x2.length === 0 && precision > 0) {
         x2 = '.';
     }
     if (x2.length) {
-        while (x2.length-1 < props.precision) {
+        while (x2.length-1 < precision) {
             x2 += '0';
         }
     }
-    if (props.showCommas) {
+    if (showCommas) {
         let rgx = /(\d+)(\d{3})/;
         while (rgx.test(x1)) {
             x1 = x1.replace(rgx, '$1'+','+'$2');
         }
     }
 
-    return (props.showDollar?'$':'') + x1 + x2;
+    return (showDollar?'$':'') + x1 + x2;
 };
 
 /**
@@ -116,13 +112,18 @@ export const formatNumber = (value, props) => {
  * @returns {*}
  */
 export const formatValue = (value, props) => {
-    if (props.dataType === 'num') {
+    const { dataType = 'str' } = props;
+    if (dataType === 'num') {
         value = formatNumber(value, props);
-    } else if (props.dataType === 'date') {
+    } else if (dataType === 'date') {
         value = formatDate(value);
     }
 
     return value;
+};
+
+export const getAutoCompleteMultiSelectValues = (state, formName, name) => {
+    return getFormFieldData(state, formName, name, 'selectedItems', []);
 };
 
 /**
@@ -166,11 +167,11 @@ export const getElementPosition = elem => {
  * @returns {*}
  */
 export const getFormData = (state, formName, propName, defaultValue) => {
-    if (!state.forms.hasOwnProperty(formName) ||
-        !state.forms[formName].hasOwnProperty(propName)) {
+    if (state.forms === undefined ||
+        state.forms[formName] === undefined ||
+        state.forms[formName][propName] === undefined) {
         return defaultValue;
     }
-
     return state.forms[formName][propName];
 };
 
@@ -186,18 +187,6 @@ export const getFormError = (state, formName) => {
 };
 
 /**
- * Returns the error message of the field.
- *
- * @param state
- * @param formName
- * @param fieldName
- * @returns {*}
- */
-export const getFormFieldError = (state, formName, fieldName) => {
-    return getFormFieldData(state, formName, fieldName, 'error', '');
-};
-
-/**
  * Returns the requested property from the form state.  This function is safe to call during initialization.
  *
  * @param state
@@ -208,14 +197,31 @@ export const getFormFieldError = (state, formName, fieldName) => {
  * @returns {*}
  */
 export const getFormFieldData = (state, formName, fieldName, propName, defaultValue) => {
-    if (!state.forms.hasOwnProperty(formName) ||
-        !state.forms[formName].hasOwnProperty('fields') ||
-        !state.forms[formName].fields.hasOwnProperty(fieldName) ||
-        !state.forms[formName].fields[fieldName].hasOwnProperty(propName)) {
+    if (state.forms === undefined)
         return defaultValue;
-    }
 
-    return state.forms[formName].fields[fieldName][propName];
+    return getFormFieldDataReducer(state.forms, formName, fieldName, propName, defaultValue);
+};
+
+export const getFormFieldDataReducer = (state, formName, fieldName, propName, defaultValue) => {
+    if (state[formName] === undefined ||
+        state[formName].fields === undefined ||
+        state[formName].fields[fieldName] === undefined ||
+        state[formName].fields[fieldName][propName] === undefined)
+        return defaultValue;
+
+    return state[formName].fields[fieldName][propName];
+};
+
+/**
+ * Returns the error message of the form.
+ *
+ * @param state
+ * @param formName
+ * @returns {*}
+ */
+export const getFormFieldError = (state, formName, fieldName) => {
+    return getFormFieldData(state, formName, fieldName, 'error', '');
 };
 
 /**
@@ -245,15 +251,14 @@ export const getInitData = props => {
             defaultValue = props.normalize(defaultValue, props.name);
         }
     } else {
-        switch (props.dataType) {
+        const { dataType = 'str' } = props;
+        switch (dataType) {
             case 'num':
                 defaultValue = 0;
                 break;
-
             case 'date':
-                defaultValue = new Date();
+                defaultValue = Date.now();
                 break;
-
             default:
                 defaultValue = '';
                 break;
@@ -269,31 +274,18 @@ export const getInitData = props => {
         }
     }
 
-    return {
+    const initData = {
         pristine: true,
-        value: defaultValue,
-        error: error,
-        valid: valid,
-        hasFocus: false
+        error,
+        valid,
+        hasFocus: false,
     };
-};
 
-/**
- * Determins whether or not the highlighted value is non-null.  In other words, if it's a string it needs to contain
- * non-whitespace.  If it's a number, it needs to be non-zero.
- *
- * @param props
- * @returns {boolean}
- */
-export const isAutoCompleteValueHighlighted = props => {
-    if (typeof props.highlightedValue === 'string') {
-        const value = props.highlightedValue.trim();
-        return value.length > 0;
-    } else if (typeof props.highlightedValue === 'number') {
-        return props.highlightedValue !== 0;
-    } else {
-        return false;
+    if (props.type !== 'radio' && props.type !== 'checkbox') {
+        initData.value = defaultValue;
     }
+
+    return initData;
 };
 
 /**
@@ -306,7 +298,7 @@ export const isAutoCompleteValueHighlighted = props => {
  */
 export const isFieldValid = (state, formName, name) => {
     return getFormFieldData(state, formName, name, 'valid', false);
-};
+}
 
 /**
  * Returns whether or not the field is valid or pristine.
@@ -374,7 +366,7 @@ const isLeapYear = year => {
  * @param value
  * @returns {boolean}
  */
-const isValidDate = value => {
+export const isValidDate = value => {
     let parts = extractDateParts(value);
     if (parts === null) {
         return false;
@@ -412,14 +404,16 @@ const isValidDate = value => {
  */
 export const normalize = (value, props) => {
     let newValue = value;
-    if (props.dataType === 'num' && typeof value === 'string' && !value.length) {
+    const { dataType = 'str' } = props;
+    if (dataType === 'num' && typeof value === 'string' && !value.length) {
         newValue = 0;
     }
-    if (props.dataType !== 'num' && props.dataType !== 'date') {
-        if (props.normalize || props.forceUpper) {
+    if (dataType !== 'num' && dataType !== 'date') {
+        const { forceUpper = false } = props;
+        if (props.normalize || forceUpper) {
             if (props.normalize) {
                 newValue = props.normalize(value, props.name);
-            } else if (props.forceUpper && typeof value === 'string') {
+            } else if (forceUpper && typeof value === 'string') {
                 newValue = value.toUpperCase();
             }
         }
@@ -436,8 +430,7 @@ export const normalize = (value, props) => {
  */
 const parseNumber = value => {
     if (typeof value === 'string') {
-        value = value.replace(/[,$]/g, '');
-        return parseFloat(value);
+        return parseFloat(value.replace(/[,$]/g, ''));
     } else {
         return value;
     }
@@ -451,35 +444,20 @@ const parseNumber = value => {
  * @returns {*}
  */
 export const parseValue = (value, props) => {
+    const { dataType = 'str' } = props;
     if (props.parse) {
         value = props.parse(value, props.name);
-    } else if (props.dataType === 'num') {
+    } else if (dataType === 'num') {
         value = parseNumber(value);
-    } else if (props.dataType === 'date') {
+    } else if (dataType === 'date') {
         const timestamp = Date.parse(value);
         if (isNaN(timestamp)) {
             return value;
         }
-        value = new Date();
-        value.setTime(timestamp);
+        value = timestamp;
     }
 
     return value;
-};
-
-/**
- * Takes a string in U.S. data format (MM/DD/YYYY) and converts it to a JavaScript Date object.
- *
- * @param value
- * @returns {*}
- */
-const toDate = value => {
-    if (!isValidDate(value)) {
-        return value;
-    }
-
-    let parts = extractDateParts(value);
-    return new Date(parts.Year, parts.Month-1, parts.Day);
 };
 
 /**
@@ -489,7 +467,7 @@ const toDate = value => {
  * @param precision
  * @returns {number}
  */
-const toNumber = (value,precision) => {
+const toNumber = (value, precision) => {
     if (typeof value === 'string') {
         value = value.replace(/[,$]/g, '');
     }

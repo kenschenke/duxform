@@ -1,6 +1,6 @@
 # DuxForm
 
-Low-complexity Form handling and processing for React / Redux applications.  I originally
+Low-complexity form handling and processing for React / Redux applications.  I originally
 developed this for a few web sites.  I played with a few other React
 form frameworks but none met my needs.  They either did not offer
 different data types or did not offer built-in Redux integration.  Some
@@ -8,6 +8,7 @@ required heavy customization to meet my needs or were overly complex.
 
 ## Notable Features
 
+* Rewritten for React 19
 * Built-in Redux integration
 * Native data types such as date and numbers
 * Field-level and form-level validation with support for custom validation at both levels
@@ -19,7 +20,7 @@ required heavy customization to meet my needs or were overly complex.
 
 ```npm install duxform```
 
-Visit the website at [http://www.duxform.com](http://www.duxform.com) including full documentation and examples.
+Visit the website at [https://www.duxform.com](http://www.duxform.com) including full documentation and examples.
 
 ## GitHub
 

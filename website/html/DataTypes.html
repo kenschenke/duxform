@@ -15,23 +15,23 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Property</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
+    <tr>
+        <th>Property</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>trim</td>
-            <td>true</td>
-            <td>If true, leading and trailing whitespace are trimmed when the field loses focus.</td>
-        </tr>
-        <tr>
-            <td>forceUpper</td>
-            <td>false</td>
-            <td>If true, alphabetic case is forced to uppercase when the field loses focus.</td>
-        </tr>
+    <tr>
+        <td>trim</td>
+        <td>true</td>
+        <td>If true, leading and trailing whitespace are trimmed when the field loses focus.</td>
+    </tr>
+    <tr>
+        <td>forceUpper</td>
+        <td>false</td>
+        <td>If true, alphabetic case is forced to uppercase when the field loses focus.</td>
+    </tr>
     </tbody>
 </table>
 
@@ -49,41 +49,41 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Property</th>
-            <th>Default</th>
-            <th>Description</th>
-        </tr>
+    <tr>
+        <th>Property</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>precision</td>
-            <td>0</td>
-            <td>
-                This controls not only how many digits are shown after the decimal point, but values are rounded
-                according to this precision.  See the <code>round</code> property for more information.
-            </td>
-        </tr>
-        <tr>
-            <td>showCommas</td>
-            <td>false</td>
-            <td>If true, commas are used as a thousands separator when formatting the field.</td>
-        </tr>
-        <tr>
-            <td>showDollar</td>
-            <td>false</td>
-            <td>If true, a United States dollar sign is put at the beginning of the field when formatting.</td>
-        </tr>
-        <tr>
-            <td>round</td>
-            <td>true</td>
-            <td>
-                If true, values are rounded using the <code>precision</code> property when saved in the Redux store.
-                For example, if precision is 2 and the user types 12.336 the value is saved as 12.34 in the Redux
-                store.  If precision is 0 and the user types 122.7 then 123 is stored.  The rounding occurs when the
-                field loses focus.  While the field has focus the value is stored as a string.
-            </td>
-        </tr>
+    <tr>
+        <td>precision</td>
+        <td>0</td>
+        <td>
+            This controls not only how many digits are shown after the decimal point, but values are rounded
+            according to this precision.  See the <code>round</code> property for more information.
+        </td>
+    </tr>
+    <tr>
+        <td>showCommas</td>
+        <td>false</td>
+        <td>If true, commas are used as a thousands separator when formatting the field.</td>
+    </tr>
+    <tr>
+        <td>showDollar</td>
+        <td>false</td>
+        <td>If true, a United States dollar sign is put at the beginning of the field when formatting.</td>
+    </tr>
+    <tr>
+        <td>round</td>
+        <td>true</td>
+        <td>
+            If true, values are rounded using the <code>precision</code> property when saved in the Redux store.
+            For example, if precision is 2 and the user types 12.336 the value is saved as 12.34 in the Redux
+            store.  If precision is 0 and the user types 122.7 then 123 is stored.  The rounding occurs when the
+            field loses focus.  While the field has focus the value is stored as a string.
+        </td>
+    </tr>
     </tbody>
 </table>
 
@@ -94,6 +94,6 @@
     characters 0 - 9 and /.  It is possible for other characters to be placed into the field by pasting from the
     clipboard but those other characters would be ignored.  Dates are formatted according to United States standards.
     That is, month/day/year.  Internationalization may be supported in future versions with no plans at this time.
-    The date is saved in the Redux store as a JavaScript Date object.  If no default value is specified for a date
+    The date is saved in the Redux store as a JavaScript timestamp.  If no default value is specified for a date
     field, today's date is used.
 </p>

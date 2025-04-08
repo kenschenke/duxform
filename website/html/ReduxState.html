@@ -9,13 +9,13 @@
 <h4>Basic Structure</h4>
 
 <p>
-    Beneath the <code>form</code> object, an object is created for each <code>&lt;DuxForm&gt;</code> component in the
+    Beneath the <code>forms</code> object, an object is created for each <code>&lt;DuxForm&gt;</code> component in the
     application.  Each form's object is created when its <code>&lt;DuxForm&gt;</code> component is initialized.  Within
     that object, <code>valid</code>, <code>pristine</code>, and <code>error</code> properties are created to reflect state for the form as
     a whole.  <code>valid</code> is true as long as every field in the form is valid (see the Validation topic) and
     <code>pristine</code> is true as long as all fields in the form are pristine (their values are not modified). A
     <code>fields</code> object is also created.  Beneath that, objects are created for each field in the form.  The
-    properties for each field are detailed later.  An typical Redux store might look like the following.
+    properties for each field are detailed later.  A typical Redux store might look like the following.
 </p>
 
 <pre>
@@ -68,41 +68,40 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>Property</th>
-            <th>Description</th>
-        </tr>
+    <tr>
+        <th>Property</th>
+        <th>Description</th>
+    </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>pristine</td>
-            <td>
-                True if the field has not been changed from the default value.  This includes typing by the user,
-                pasting into the field, or programatically changing the value.
-            </td>
-        </tr>
-        <tr>
-            <td>value</td>
-            <td>
-                The current value of the field.  For <code>dataType="num"</code> fields, this is a native JavaScript
-                integer or floating point value.  For <code>dataType="data"</code> fields, this is a JavaScript Date
-                object.
-            </td>
-        </tr>
-        <tr>
-            <td>error</td>
-            <td>For field validation, this is an error message.</td>
-        </tr>
-        <tr>
-            <td>valid</td>
-            <td>
-                For field validation, this is true or false to indicate validity.  If no validation callback is
-                specified, this value is always true.  See the <strong>Validation</strong> topic for more information.
-            </td>
-        </tr>
-        <tr>
-            <td>hasFocus</td>
-            <td>True if the field has current focus.</td>
-        </tr>
+    <tr>
+        <td>pristine</td>
+        <td>
+            True if the field has not been changed from the default value.  This includes typing by the user,
+            pasting into the field, or programatically changing the value.
+        </td>
+    </tr>
+    <tr>
+        <td>value</td>
+        <td>
+            The current value of the field.  For <code>dataType="num"</code> fields, this is a native JavaScript
+            integer or floating point value.  For <code>dataType="data"</code> fields, this is a JavaScript timestamp.
+        </td>
+    </tr>
+    <tr>
+        <td>error</td>
+        <td>For field validation, this is an error message.</td>
+    </tr>
+    <tr>
+        <td>valid</td>
+        <td>
+            For field validation, this is true or false to indicate validity.  If no validation callback is
+            specified, this value is always true.  See the <strong>Validation</strong> topic for more information.
+        </td>
+    </tr>
+    <tr>
+        <td>hasFocus</td>
+        <td>True if the field has current focus.</td>
+    </tr>
     </tbody>
 </table>

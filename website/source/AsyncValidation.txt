@@ -1,71 +1,52 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {DuxInput, DuxForm, getFormData, getFormFieldValue} from 'duxform';
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {DuxForm, DuxInput, getFormData, getFormFieldValue} from 'duxform';
 
-const mapProps = state => {
-    return {
-        username: getFormFieldValue(state, 'asyncvalidation', 'username', ''),
-        usernamePristine: getFormData(state, 'asyncvalidation', 'pristine', true)
-    };
-};
+function AsyncValidation() {
+    const [validUsername, setValidUsername] = useState(false);
+    const [validatingUsername, setValidatingUsername] = useState(false);
 
-class AsyncValidationUi extends React.Component {
-    constructor(props) {
-        super(props);
+    const username = useSelector(state => getFormFieldValue(state, 'asyncvalidation', 'username', ''));
+    const usernamePristine = useSelector(state => getFormData(state, 'asyncvalidation', 'pristine', true));
 
-        this.state = {
-            validUsername: false,
-            validatingUsername: false
-        };
-    }
-
-    usernameBlur = () => {
-        // Simulate an ajax request
-        this.setState({validatingUsername:true});
+    const usernameBlur = () => {
+        // Simulate an async server request
+        setValidatingUsername(true);
         setTimeout(() => {
-            this.setState({
-                validUsername: this.props.username.toUpperCase().indexOf('X') !== -1,
-                validatingUsername: false
-            });
+            setValidUsername(username.toUpperCase().indexOf('X') !== -1);
+            setValidatingUsername(false);
         }, 2000);  // two seconds
     };
 
-    render() {
-        let usernameTextClass = 'form-text';
-        let usernameText = '';
-        if (this.state.validatingUsername) {
-            usernameTextClass += ' text-muted';
-            usernameText = 'Validating username';
-        } else if (!this.props.usernamePristine && !this.state.validUsername) {
-            usernameTextClass += ' text-danger';
-            usernameText = 'Username must contain the letter "x"';
-        }
-        return (
-            <DuxForm name="asyncvalidation">
-                <div className="form-group">
-                    <label>Username</label>
-                    <DuxInput name="username" className="form-control" onBlur={this.usernameBlur}/>
-                    <small className={usernameTextClass} style={{height:'.8em'}}>{usernameText}</small>
-                </div>
-                <div className="form-group">
-                    <label>Email</label>
-                    <DuxInput name="email" className="form-control"/>
-                </div>
-                <button
-                    type="button"
-                    className="btn btn-secondary"
-                    disabled={!this.state.validUsername || this.state.validatingUsername}>
-                    Submit
-                </button>
-            </DuxForm>
-        );
+    let usernameTextClass = 'form-text';
+    let usernameText = '';
+    if (validatingUsername) {
+        usernameTextClass += ' text-muted';
+        usernameText = 'Validating username';
+    } else if (!usernamePristine && !validUsername) {
+        usernameTextClass += ' text-danger';
+        usernameText = 'Username must contain the letter "x"';
     }
+
+    return (
+        <DuxForm name="asyncvalidation">
+            <div className="form-group">
+                <label>Username</label>
+                <DuxInput name="username" className="form-control" onBlur={usernameBlur}/>
+                <small className={usernameTextClass} style={{height:'.8em'}}>{usernameText}</small>
+            </div>
+            <div className="form-group">
+                <label>Email</label>
+                <DuxInput name="email" className="form-control"/>
+            </div>
+            <button
+                type="button"
+                className="btn btn-secondary"
+                disabled={!validUsername || validatingUsername}>
+                Submit
+            </button>
+        </DuxForm>
+    );
 }
 
-AsyncValidationUi.propTypes = {
-    username: PropTypes.string.isRequired,
-    usernamePristine: PropTypes.bool.isRequired
-};
-
-export const AsyncValidation = connect(mapProps)(AsyncValidationUi);
+export default AsyncValidation;

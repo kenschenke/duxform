@@ -1,59 +1,44 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StateViewer } from './StateViewer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import faCaretRight from '@fortawesome/fontawesome-free-solid/faCaretRight';
-import faCaretDown from '@fortawesome/fontawesome-free-solid/faCaretDown';
+import React from "react";
+import { useState } from 'react';
+import StateViewer from './StateViewer.jsx';
+import { BsChevronRight, BsChevronDown } from "react-icons/bs";
 
-export class Section extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            collapsed: true
-        };
-    }
+function Section({ title, form, name }) {
+    const [collapsed, setCollapsed] = useState(true);
 
-    toggleCollapse = () => {
-        this.setState({
-            collapsed: !this.state.collapsed
-        });
+    const toggleCollapsed = () => {
+        setCollapsed(!collapsed);
     };
 
-    render() {
-        return (
-            <div className="container mt-2">
-                <div className="row">
-                    <div className="col">
-                        <div className="alert alert-secondary" onClick={this.toggleCollapse} style={{cursor:'pointer'}}>
-                            <h4>
-                                { this.state.collapsed &&
-                                <FontAwesomeIcon icon={faCaretRight} className="mr-2"/>
-                                }
-                                { !this.state.collapsed &&
-                                <FontAwesomeIcon icon={faCaretDown} className="mr-2"/>
-                                }
-                                {this.props.title}
-                            </h4>
-                        </div>
+    return (
+        <div className="container mt-2">
+            <div className="row">
+                <div className="col">
+                    <div className="alert alert-secondary" onClick={toggleCollapsed} style={{ cursor: 'pointer' }}>
+                        <h4>
+                            {collapsed &&
+                                <BsChevronRight />
+                            }
+                            {!collapsed &&
+                                <BsChevronDown />
+                            }
+                            <span style={{ marginLeft: 4}}>{title}</span>
+                        </h4>
                     </div>
                 </div>
-                { !this.state.collapsed &&
-                <div className="row">
-                    <div className="col">
-                        {React.createElement(this.props.form)}
-                    </div>
-                    <div className="col">
-                        <StateViewer form={this.props.name}/>
-                    </div>
-                </div>
-                }
             </div>
-        );
-    }
+            {!collapsed &&
+                <div className="row">
+                    <div className="col">
+                        {React.createElement(form)}
+                    </div>
+                    <div className="col">
+                        <StateViewer form={name} />
+                    </div>
+                </div>
+            }
+        </div>
+    );
 }
 
-Section.propTypes = {
-    title: PropTypes.string.isRequired,
-    form: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired
-};
+export default Section;

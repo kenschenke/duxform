@@ -1,37 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {DuxForm, DuxAutoComplete, getFormFieldError, isFieldValidOrPristine} from 'duxform';
+import {useSelector} from 'react-redux';
+import {DuxForm, DuxInput, getFormFieldError, isFieldValidOrPristine} from 'duxform';
 
-const mapProps = state => {
-    return {
-        usstateValid: isFieldValidOrPristine(state, 'autocomplete', 'usstate'),
-        visitedstatesValid: isFieldValidOrPristine(state, 'autocomplete', 'visitedstates'),
-        recipientsValid: isFieldValidOrPristine(state, 'autocomplete', 'recipients'),
-        recipientsError: getFormFieldError(state, 'autocomplete', 'recipients')
-    };
-};
+function AutoComplete() {
+    const states = [
+        {label:'Alabama', value:'AL'},
+        {label:'Alaska', value:'AK'},
 
-const states = [
-    {label:'Alabama', value:'AL'},
-    {label:'Alaska', value:'AK'},
+        // snip
 
-    // snip
+        {label:'Wisconsin', value:'WI'},
+        {label:'Wyoming', value:'WY'}
+    ];
 
-    {label:'Wisconsin', value:'WI'},
-    {label:'Wyoming', value:'WY'}
-];
+    const addrbook = [
+        {label:'john.doe@example.com', value:'john.doe@example.com'},
+        {label:'jane.doe@example.com', value:'jane.doe@example.com'},
+        {label:'ed.smith@example.com', value:'ed.smith@example.com'},
+        {label:'al.jones@example.com', value:'al.jones@example.com'}
+    ];
 
-const addrbook = [
-    {label:'john.doe@example.com', value:'john.doe@example.com'},
-    {label:'jane.doe@example.com', value:'jane.doe@example.com'},
-    {label:'ed.smith@example.com', value:'ed.smith@example.com'},
-    {label:'al.jones@example.com', value:'al.jones@example.com'}
-];
+    const usstateValid = useSelector(state => isFieldValidOrPristine(state, 'autocomplete', 'usstate'));
+    const visitedstatesValid = useSelector(state => isFieldValidOrPristine(state, 'autocomplete', 'visitedstates'));
+    const recipientsValid = useSelector(state => isFieldValidOrPristine(state, 'autocomplete', 'recipients'));
+    const recipientsError = useSelector(state => getFormFieldError(state, 'autocomplete', 'recipients'));
 
-class AutoCompleteUi extends React.Component {
-    validateEmail = value => {
-        const email = $.trim(value);
+    const validateEmail = value => {
+        const email = value.trim();
         const found = email.search(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/);
         if (found >= 0) {
             return undefined;
@@ -40,77 +34,68 @@ class AutoCompleteUi extends React.Component {
         }
     };
 
-    render() {
-        return (
-            <DuxForm name="autocomplete">
-                <div className="form-group">
-                    <label>Type an American State</label>
-                    <DuxAutoComplete
-                        name="usstate"
-                        className={'form-control' + (this.props.usstateValid ? '' : ' is-invalid')}
-                        items={states}
-                        nextField="usstateallownew"
-                    />
-                    <small className="form-text text-danger" style={{height:'.8em'}}>
-                        {this.props.usstateValid ? '' : 'Please type a valid American State'}
-                    </small>
-                </div>
-                <div className="form-group">
-                    <label>Type an American State or Make up a State Name</label>
-                    <DuxAutoComplete
-                        name="usstateallownew"
-                        className="form-control"
-                        items={states}
-                        allowNewItems={true}
-                        nextField="visitedstates"
-                    />
-                    <small className="form-text">
-                        Type an existing state or type a new one such as Puerto Rico
-                    </small>
-                </div>
-                <div className="form-group">
-                    <label>States I Have Visited</label>
-                    <DuxAutoComplete
-                        name="visitedstates"
-                        className={'form-control' + (this.props.visitedstatesValid ? '' : ' is-invalid')}
-                        items={states}
-                        allowMulti={true}
-                        nextField="recipients"
-                    />
-                    <small className="form-text text-danger" style={{height:'.8em'}}>
-                        {this.props.visitedstatesValid ? '' : 'Please select from the list of valid American States'}
-                    </small>
-                </div>
-                <div className="form-group">
-                    <label>Email Recipients</label>
-                    <DuxAutoComplete
-                        name="recipients"
-                        className={'form-control' + (this.props.recipientsValid ? '' : ' is-invalid')}
-                        items={addrbook}
-                        allowMulti={true}
-                        allowNewItems={true}
-                        validateItem={this.validateEmail}
-                        nextField="usstate"
-                    />
-                    <small className="form-text">
-                        Select from the list of "example.com" addresses or type a new email address,
-                        followed by a comma, semi-colon, or Enter.  Email addresses are validated to
-                        match a valid email address.  Try typing an invalid address such as "john@foo".
-                    </small>
-                    <small className="form-text text-danger" style={{height:'.8em'}}>
-                        {this.props.recipientsValid ? '' : this.props.recipientsError}
-                    </small>
-                </div>
-            </DuxForm>
-        );
-    }
+    return (
+        <DuxForm name="autocomplete">
+            <div className="form-group">
+                <label>Type an American State</label>
+                <DuxAutoComplete
+                    name="usstate"
+                    className={'form-control' + (usstateValid ? '' : ' is-invalid')}
+                    items={states}
+                    nextField="usstateallownew"
+                />
+                <small className="form-text text-danger" style={{height:'.8em'}}>
+                    {usstateValid ? '' : 'Please type a valid American State'}
+                </small>
+            </div>
+            <div className="form-group">
+                <label>Type an American State or Make up a State Name</label>
+                <DuxAutoComplete
+                    name="usstateallownew"
+                    className="form-control"
+                    items={states}
+                    allowNewItems={true}
+                    nextField="visitedstates"
+                />
+                <small className="form-text">
+                    Type an existing state or type a new one such as Puerto Rico
+                </small>
+            </div>
+            <div className="form-group">
+                <label>States I Have Visited</label>
+                <DuxAutoComplete
+                    name="visitedstates"
+                    className={'form-control' + (visitedstatesValid ? '' : ' is-invalid')}
+                    items={states}
+                    allowMulti={true}
+                    nextField="recipients"
+                />
+                <small className="form-text text-danger" style={{height:'.8em'}}>
+                    {visitedstatesValid ? '' : 'Please select from the list of valid American States'}
+                </small>
+            </div>
+            <div className="form-group">
+                <label>Email Recipients</label>
+                <DuxAutoComplete
+                    name="recipients"
+                    className={'form-control' + (recipientsValid ? '' : ' is-invalid')}
+                    items={addrbook}
+                    allowMulti={true}
+                    allowNewItems={true}
+                    validateItem={validateEmail}
+                    nextField="usstate"
+                />
+                <small className="form-text">
+                    Select from the list of "example.com" addresses or type a new email address,
+                    followed by a comma, semi-colon, or Enter.  Email addresses are validated to
+                    match a valid email address.  Try typing an invalid address such as "john@foo".
+                </small>
+                <small className="form-text text-danger" style={{height:'.8em'}}>
+                    {recipientsValid ? '' : recipientsError}
+                </small>
+            </div>
+        </DuxForm>
+    );
 }
 
-AutoCompleteUi.propTypes = {
-    usstateValid: PropTypes.bool.isRequired,
-    visitedstatesValid: PropTypes.bool.isRequired,
-    recipientsValid: PropTypes.bool.isRequired,
-    recipientsError: PropTypes.string.isRequired
-};
-
-export const AutoComplete = connect(mapProps)(AutoCompleteUi);
+export default AutoComplete;

@@ -25,9 +25,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {getAutoCompleteMultiSelectValues} from 'duxform';
 
-    getAutoCompleteMultiSelectValues(state, formName, fieldName);
+    const values = useSelector(state => getAutoCompleteMultiSelectValues(state, formName, fieldName));
 </pre>
 
 <h4>getFormData</h4>
@@ -40,9 +41,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {getFormData} from 'duxform';
 
-    getFormData(state, formName, propName, defaultValue);
+    const value = useSelector(state => getFormData(state, formName, propName, defaultValue));
 </pre>
 
 <h4>getFormError</h4>
@@ -52,9 +54,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {getFormError} from 'duxform';
 
-    getFormError(state, formName);
+    const error = useSelector(state => getFormError(state, formName));
 </pre>
 
 <h4>getFormFieldData</h4>
@@ -67,9 +70,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {getFormFieldData} from 'duxform';
 
-    getFormFieldData(state, formName, fieldName, propName, defaultValue);
+    const value = useSelector(state => getFormFieldData(state, formName, fieldName, propName, defaultValue));
 </pre>
 
 <h4>getFormFieldError</h4>
@@ -80,9 +84,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {getFormFieldError} from 'duxform';
 
-    getFormFieldError(state, formName, fieldName);
+    const error = useSelector(state => getFormFieldError(state, formName, fieldName));
 </pre>
 
 <h4>getFormFieldValue</h4>
@@ -93,9 +98,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {getFormFieldValue} from 'duxform';
 
-    getFormFieldValue(state, formName, fieldName, defaultValue);
+    const value = useSelector(state => getFormFieldValue(state, formName, fieldName, defaultValue));
 </pre>
 
 <h4>isFieldValid</h4>
@@ -106,9 +112,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {isFieldValid} from 'duxform';
 
-    isFieldValid(state, formName, fieldName);
+    const isValid = useSelector(state => isFieldValid(state, formName, fieldName));
 </pre>
 
 <h4>isFieldValidOrPristine</h4>
@@ -121,9 +128,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {isFieldValidOrPristine} from 'duxform';
 
-    isFieldValidOrPristine(state, formName, fieldName);
+    const isValid = useSelector(state => isFieldValidOrPristine(state, formName, fieldName));
 </pre>
 
 <h4>isFormValid</h4>
@@ -134,9 +142,10 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {isFormValid} from 'duxform';
 
-    isFormValid(state, formName);
+    const isValid = useSelector(state => isFormValid(state, formName));
 </pre>
 
 <h4>isFormValidOrPristine</h4>
@@ -149,22 +158,28 @@
 </p>
 
 <pre>
+    import {useSelector} from 'react-redux';
     import {isFormValidOrPristine} from 'duxform';
 
-    isFormValidOrPristine(state, formName);
+    const isValid = useSelector(state => isFormValidOrPristine(state, formName));
 </pre>
 
 <h4>clearAutoCompleteSelection</h4>
 
-<pre>
-    import {clearAutoCompleteSelection from 'duxform';
-
-    clearAutoCompleteSelection(formName, fieldName);
-</pre>
-
 <p>
     This action clears selections on a single-select or multi-select auto-complete field.
 </p>
+
+<pre>
+    import {useDispatch} from 'react-redux';
+    import {clearAutoCompleteSelection} from 'duxform';
+
+    const dispatch = useDispatch();
+    dispatch(clearAutoCompleteSelection({
+        form: formName,
+        field: fieldName
+    }));
+</pre>
 
 <h4>setAutoCompleteSingleSelectValue</h4>
 
@@ -173,9 +188,17 @@
 </p>
 
 <pre>
+    import {useDispatch} from 'react-redux';
     import {setAutoCompleteSingleSelectValue} from 'duxform';
 
-    setAutoCompleteSingleSelectValue(formName, fieldName, value, items, valid = true);
+    const dispatch = useDispatch();
+    dispatch(setAutoCompleteSingleSelectValue({
+        form: formName,
+        field: fieldName,
+        value: value,
+        items: items,
+        valid: valid
+    }));
 </pre>
 
 <p>
@@ -191,9 +214,17 @@
 </p>
 
 <pre>
+    import {useDispatch} from 'react-redux';
     import {setAutoCompleteMultiSelectValues} from 'duxform';
 
-    setAutoCompleteMultiSelectValues(formName, name, values, items, valid = true);
+    const dispatch = useDispatch();
+    dispatch(setAutoCompleteMultiSelectValues({
+        form: formName,
+        field: name,
+        values: values,
+        items: items,
+        valid: valid
+    }));
 </pre>
 
 <p>
@@ -210,8 +241,13 @@
 </p>
 
 <pre>
+    import {useDispatch} from 'react-redux';
     import {setFormFieldValid} from 'duxform';
 
-    dispatch(setFormFieldValue(formName, fieldName, value, valid = true));
+    const dispatch = useDispatch();
+    dispatch(setFormFieldValue({
+        form: formName,
+        field: fieldName,
+        value: value
+    }));
 </pre>
-

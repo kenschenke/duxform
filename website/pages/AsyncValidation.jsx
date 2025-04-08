@@ -1,0 +1,54 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import DuxForm from '../../src/components/DuxForm.jsx';
+import DuxInput from '../../src/components/DuxInput.jsx';
+import { getFormData, getFormFieldValue } from "../../src/helpers.js";
+
+function AsyncValidation() {
+    const [validUsername, setValidUsername] = useState(false);
+    const [validatingUsername, setValidatingUsername] = useState(false);
+
+    const username = useSelector(state => getFormFieldValue(state, 'asyncvalidation', 'username', ''));
+    const usernamePristine = useSelector(state => getFormData(state, 'asyncvalidation', 'pristine', true));
+
+    const usernameBlur = () => {
+        // Simulate an async server request
+        setValidatingUsername(true);
+        setTimeout(() => {
+            setValidUsername(username.toUpperCase().indexOf('X') !== -1);
+            setValidatingUsername(false);
+        }, 2000);  // two seconds
+    };
+
+    let usernameTextClass = 'form-text';
+    let usernameText = '';
+    if (validatingUsername) {
+        usernameTextClass += ' text-muted';
+        usernameText = 'Validating username';
+    } else if (!usernamePristine && !validUsername) {
+        usernameTextClass += ' text-danger';
+        usernameText = 'Username must contain the letter "x"';
+    }
+
+    return (
+        <DuxForm name="asyncvalidation">
+            <div className="form-group">
+                <label>Username</label>
+                <DuxInput name="username" className="form-control" onBlur={usernameBlur}/>
+                <small className={usernameTextClass} style={{height:'.8em'}}>{usernameText}</small>
+            </div>
+            <div className="form-group">
+                <label>Email</label>
+                <DuxInput name="email" className="form-control"/>
+            </div>
+            <button
+                type="button"
+                className="btn btn-secondary"
+                disabled={!validUsername || validatingUsername}>
+                Submit
+            </button>
+        </DuxForm>
+    );
+}
+
+export default AsyncValidation;

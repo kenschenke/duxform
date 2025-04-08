@@ -1,47 +1,17 @@
-const DuxForm = require('./lib/DuxForm').DuxForm;
-const DuxInput = require('./lib/DuxInput').DuxInput;
-const DuxAutoComplete = require('./lib/DuxAutoComplete').DuxAutoComplete;
-const DuxFormReducer  = require('./lib/reducer');
-
-const findFormField = require('./lib/helpers').findFormField;
-const getFormData = require('./lib/helpers').getFormData;
-const getFormError = require('./lib/helpers').getFormError;
-const getFormFieldData = require('./lib/helpers').getFormFieldData;
-const getFormFieldError = require('./lib/helpers').getFormFieldError;
-const getFormFieldValue = require('./lib/helpers').getFormFieldValue;
-const isFieldValid = require('./lib/helpers').isFieldValid;
-const isFieldValidOrPristine = require('./lib/helpers').isFieldValidOrPristine;
-const isFormValid = require('./lib/helpers').isFormValid;
-const isFormValidOrPristine = require('./lib/helpers').isFormValidOrPristine;
-
-const clearAutoCompleteSelection = require('./lib/actions-autocomplete').clearAutoCompleteSelection;
-const getAutoCompleteMultiSelectValues = require('./lib/actions-autocomplete').getAutoCompleteMultiSelectValues;
-const setAutoCompleteSingleSelectValue = require('./lib/actions-autocomplete').setAutoCompleteSingleSelectValue;
-const setAutoCompleteMultiSelectValues = require('./lib/actions-autocomplete').setAutoCompleteMultiSelectValues;
-
-const setFormFieldValue = require('./lib/actions-input').setFormFieldValue;
-
-module.exports = {
-    DuxForm: DuxForm,
-    DuxInput: DuxInput,
-    DuxAutoComplete: DuxAutoComplete,
-    DuxFormReducer: DuxFormReducer,
-
-    findFormField: findFormField,
-    getFormData: getFormData,
-    getFormError: getFormError,
-    getFormFieldData: getFormFieldData,
-    getFormFieldError: getFormFieldError,
-    getFormFieldValue: getFormFieldValue,
-    isFieldValid: isFieldValid,
-    isFieldValidOrPristine: isFieldValidOrPristine,
-    isFormValid: isFormValid,
-    isFormValidOrPristine: isFormValidOrPristine,
-
-    clearAutoCompleteSelection: clearAutoCompleteSelection,
-    getAutoCompleteMultiSelectValues: getAutoCompleteMultiSelectValues,
-    setAutoCompleteSingleSelectValue: setAutoCompleteSingleSelectValue,
-    setAutoCompleteMultiSelectValues: setAutoCompleteMultiSelectValues,
-
-    setFormFieldValue: setFormFieldValue
-};
+export {
+    DuxForm,
+    DuxInput,
+    DuxAutoComplete,
+    findFormField,
+    getFormData,
+    getFormError,
+    getFormFieldData,
+    getFormFieldError,
+    getFormFieldValue,
+    isFieldValidOrPristine,
+    isFormValid,
+    clearAutocompleteSelection,
+    setAutocompleteSingleSelectValue,
+    setAutocompleteMultiSelectValues,
+    setFormFieldValue,
+} from './dist/duxform.js';

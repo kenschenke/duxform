@@ -1,28 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { agate } from 'react-syntax-highlighter/styles/hljs';
 
-const mapProps = (state, props) => {
-    return {
-        state: state.forms.hasOwnProperty(props.form) ?
-            JSON.stringify(state.forms[props.form], null, 3) : '{}'
-    };
-};
+function StateViewer({ form }) {
+    const formsState = useSelector(state => state.forms);
+    const formState = formsState.hasOwnProperty(form) ?
+        JSON.stringify(formsState[form], null, 2) : '{}';
 
-class StateViewerUi extends React.Component {
-    render() {
-        return (
-            <SyntaxHighlighter language="javascript" style={agate}>
-                {this.props.state}
-            </SyntaxHighlighter>
-        );
-    }
+    return (
+        <SyntaxHighlighter language="javascript">
+            {formState}
+        </SyntaxHighlighter>
+    );
 }
 
-StateViewerUi.propTypes = {
-    state: PropTypes.string.isRequired
-};
-
-export const StateViewer = connect(mapProps)(StateViewerUi);
+export default StateViewer;

@@ -1,9 +1,11 @@
 /.idea
 /duxform*.tgz
-/.babelrc
 .gitignore
 /src
 /node_modules
 __test__
 /testbed
-webpack.*.js
+/website
+vite*.js
+eslint.config.js
+

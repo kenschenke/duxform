@@ -20,7 +20,7 @@
 
 <p>
     If you are using the <code>&lt;DuxAutoComplete&gt;</code> component, you also need to link to the
-    <code>duxautocomplete.css</code> file in the <code>node_modules/duxform/website/dist/</code> directory.
+    <code>duxautocomplete.css</code> file in the <code>node_modules</code> directory.
 </p>
 
 <pre>
@@ -35,25 +35,25 @@
 <h4>Redux Store</h4>
 
 <p>
-    DuxForm stores form state in the Redux store.  It requires the root <code>form</code> object in the store.
+    DuxForm stores form state in the Redux store.  It requires the root <code>forms</code> object in the store.
     A reducer is supplied to manage this.
 </p>
 
 <pre>
     import {DuxFormReducer} from 'duxform';
 
-    const appReducer = combineReducers({
-        ...  // other reducers
-        forms: DuxFormReducer
+    const store = configureStore({
+        reducer: {
+            ...  // other reducers
+            forms: DuxFormReducer
+        }
     });
 </pre>
 
 <h4>Browser Requirements</h4>
 
 <p>
-    DuxForm doesn't place any special requirements on browser support.  It has been tested on the modern evergreen
-    browsers (Chrome and Firefox) as well as Internet Explorer 10 and 11.  It definitely won't work on
-    Internet Explorer 8 or earlier.
+    DuxForm doesn't place any special requirements on browser support.
 </p>
 
 <h4>Example</h4>
